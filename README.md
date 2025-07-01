@@ -4,10 +4,14 @@
 
 ![EvarisTools Logo](public/images/logo.png)
 
-**Suite Integral de Herramientas Digitales para Instituciones Educativas**
+**Suite Integral de Herramientas Digitales**
+**Hospital Universitario del Valle Evaristo García E.S.E**
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/tu-usuario/evaristools)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+*Departamento de Innovación y Desarrollo Tecnológico*
+
+[![HUV](https://img.shields.io/badge/HUV-Evaristo%20García-2a387f.svg)](https://www.huv.gov.co)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](#)
+[![License](https://img.shields.io/badge/license-Institucional-green.svg)](#-licencia)
 [![React](https://img.shields.io/badge/React-19.1.0-61DAFB.svg)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.3.5-646CFF.svg)](https://vitejs.dev/)
@@ -1463,33 +1467,59 @@ Cualquier otra información relevante.
 
 ## 📄 Licencia
 
-### 📜 MIT License
+### 📜 Licencia Institucional
 
 ```
-MIT License
+Copyright (c) 2024 Hospital Universitario del Valle Evaristo García E.S.E
+Departamento de Innovación y Desarrollo Tecnológico
 
-Copyright (c) 2024 EvarisTools
+Todos los derechos reservados.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+EvarisTools es una suite de herramientas digitales desarrollada por el
+Hospital Universitario del Valle Evaristo García E.S.E como parte de sus
+iniciativas de innovación y desarrollo tecnológico para mejorar los
+procesos administrativos y educativos de la institución.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+TÉRMINOS DE USO:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+1. USO INSTITUCIONAL: Este software está diseñado específicamente para
+   uso en entornos educativos y de salud, con énfasis en las necesidades
+   del Hospital Universitario del Valle Evaristo García E.S.E.
+
+2. DISTRIBUCIÓN: La distribución de este software requiere autorización
+   expresa del Hospital Universitario del Valle Evaristo García E.S.E.
+
+3. MODIFICACIONES: Las modificaciones al código fuente deben ser
+   reportadas y pueden requerir aprobación institucional.
+
+4. GARANTÍA: El software se proporciona "tal como está", sin garantías
+   expresas o implícitas de ningún tipo.
+
+5. RESPONSABILIDAD: El Hospital Universitario del Valle Evaristo García E.S.E
+   no será responsable por daños directos, indirectos, incidentales o
+   consecuentes derivados del uso de este software.
+
+Para consultas sobre licenciamiento, contactar:
+- Departamento de Innovación y Desarrollo
+- Hospital Universitario del Valle Evaristo García E.S.E
+- Email: innovacion@huv.gov.co
+- Teléfono: +57 (2) 620-2020
 ```
 
 ### 🙏 Reconocimientos
+
+#### **Desarrollo Institucional**
+- **Hospital Universitario del Valle Evaristo García E.S.E**: Institución líder
+- **Departamento de Innovación y Desarrollo**: Equipo de desarrollo principal
+- **Área de Tecnologías de la Información**: Soporte técnico y infraestructura
+- **Dirección Académica**: Supervisión y validación de requerimientos
+
+#### **Equipo de Desarrollo**
+- **Arquitectura de Software**: Departamento de Innovación y Desarrollo
+- **Desarrollo Frontend**: Equipo de Desarrollo Web
+- **Diseño UX/UI**: Área de Experiencia de Usuario
+- **Testing y QA**: Equipo de Calidad de Software
+- **Documentación**: Área de Documentación Técnica
 
 #### **Tecnologías Utilizadas**
 - **React**: Librería de interfaz de usuario
@@ -1501,15 +1531,17 @@ SOFTWARE.
 - **PDF-lib**: Manipulación de PDFs en JavaScript
 - **Framer Motion**: Librería de animaciones
 
-#### **Recursos y Assets**
-- **Iconos**: React Icons, Material Design Icons
-- **Fuentes**: Inter, system fonts
-- **Imágenes**: Unsplash, institucionales
+#### **Recursos Institucionales**
+- **Logo y Branding**: Hospital Universitario del Valle Evaristo García E.S.E
+- **Colores Corporativos**: Identidad visual institucional
+- **Iconografía**: React Icons, Material Design Icons, recursos propios
+- **Fuentes**: Inter, tipografías institucionales
 
-#### **Comunidad**
-- **Contribuidores**: Ver [CONTRIBUTORS.md](CONTRIBUTORS.md)
-- **Beta Testers**: Instituciones educativas participantes
-- **Feedback**: Comunidad de usuarios
+#### **Colaboración y Testing**
+- **Beta Testers**: Personal administrativo y académico del HUV
+- **Feedback**: Usuarios internos y departamentos colaboradores
+- **Validación**: Comité de Tecnología e Innovación
+- **Soporte**: Mesa de ayuda institucional
 
 ---
 
@@ -1522,16 +1554,25 @@ SOFTWARE.
 - **FAQ**: [Preguntas Frecuentes](https://github.com/tu-usuario/evaristools/wiki/FAQ)
 - **Tutoriales**: [Video Tutoriales](https://youtube.com/playlist/evaristools)
 
-#### **Canales de Soporte**
-- **Issues**: [GitHub Issues](https://github.com/tu-usuario/evaristools/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/tu-usuario/evaristools/discussions)
-- **Email**: soporte@evaristools.com
-- **Discord**: [Servidor de la Comunidad](https://discord.gg/evaristools)
+#### **Canales de Soporte Institucional**
+- **Mesa de Ayuda HUV**: Ext. 2020 - soporte.ti@huv.gov.co
+- **Departamento de Innovación**: innovacion@huv.gov.co
+- **Issues Técnicos**: [GitHub Issues](https://github.com/huv-evaristools/evaristools/issues)
+- **Solicitudes de Mejora**: desarrollo.ti@huv.gov.co
+- **Capacitación**: capacitacion.ti@huv.gov.co
 
 #### **Horarios de Soporte**
-- **Lunes a Viernes**: 9:00 AM - 6:00 PM (GMT-5)
-- **Respuesta promedio**: 24-48 horas
-- **Urgencias**: Contactar por email con [URGENTE] en el asunto
+- **Lunes a Viernes**: 7:00 AM - 5:00 PM (GMT-5)
+- **Sábados**: 8:00 AM - 12:00 PM (GMT-5) - Solo urgencias
+- **Respuesta promedio**: 4-8 horas laborales
+- **Urgencias**: Contactar Mesa de Ayuda con [URGENTE] en el asunto
+
+#### **Información de Contacto**
+- **Dirección**: Calle 5 # 36-08, Cali, Valle del Cauca, Colombia
+- **Teléfono Principal**: +57 (2) 620-2020
+- **Departamento TI**: Ext. 2100
+- **Innovación y Desarrollo**: Ext. 2150
+- **Sitio Web**: [www.huv.gov.co](https://www.huv.gov.co)
 
 ### 🔄 Actualizaciones
 
@@ -1550,11 +1591,23 @@ Ver [ROADMAP.md](ROADMAP.md) para funcionalidades planificadas.
 
 <div align="center">
 
-**🛠️ Construido con ❤️ para la comunidad educativa**
+---
 
-[![GitHub stars](https://img.shields.io/github/stars/tu-usuario/evaristools?style=social)](https://github.com/tu-usuario/evaristools/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/tu-usuario/evaristools?style=social)](https://github.com/tu-usuario/evaristools/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/tu-usuario/evaristools)](https://github.com/tu-usuario/evaristools/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/tu-usuario/evaristools)](https://github.com/tu-usuario/evaristools/pulls)
+**🏥 Hospital Universitario del Valle Evaristo García E.S.E**
+
+**🛠️ EvarisTools - Desarrollado con ❤️ para la excelencia en salud y educación**
+
+*Departamento de Innovación y Desarrollo Tecnológico*
+
+[![HUV](https://img.shields.io/badge/HUV-Evaristo%20García-blue.svg)](https://www.huv.gov.co)
+[![Innovación](https://img.shields.io/badge/Innovación-Tecnológica-green.svg)](mailto:innovacion@huv.gov.co)
+[![Soporte](https://img.shields.io/badge/Soporte-24%2F7-orange.svg)](mailto:soporte.ti@huv.gov.co)
+[![Versión](https://img.shields.io/badge/Versión-1.0.0-brightgreen.svg)](#)
+
+**"Innovación al servicio de la salud y la educación"**
+
+---
+
+*© 2024 Hospital Universitario del Valle Evaristo García E.S.E - Todos los derechos reservados*
 
 </div>
