@@ -1,0 +1,8 @@
+flask==2.3.3
+flask-cors==4.0.0
+werkzeug==2.3.7
+# No se requiere comtypes ni pywin32 ya que no usaremos Word
+# No se requieren las bibliotecas alternativas de conversión
+reportlab==3.6.12
+requests==2.31.0
+PyMuPDF==1.23.7 
