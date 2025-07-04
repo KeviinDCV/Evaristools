@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import config from '../config';
 import { PDFDocument } from 'pdf-lib';
 import { saveAs } from 'file-saver';
@@ -331,53 +332,97 @@ const PdfSplit: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col max-w-[960px] mx-auto">
-      <div className="flex flex-col space-y-2 mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Dividir PDF</h1>
-        <p className="text-[#5c728a] text-sm">
-          Divide un archivo PDF en múltiples documentos seleccionando las páginas que necesitas. 
+    <div className="flex flex-col max-w-7xl mx-auto space-y-6">
+      {/* Back Button */}
+      <div className="flex items-center">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors rounded-lg hover:bg-muted/50"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Volver a herramientas
+        </Link>
+      </div>
+
+      {/* Header Section */}
+      <div className="space-y-3">
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground">Dividir PDF</h1>
+        <p className="text-muted-foreground text-sm md:text-base max-w-2xl">
+          Divide un archivo PDF en múltiples documentos seleccionando las páginas que necesitas.
           Puedes extraer secciones específicas o separar un documento grande en partes más pequeñas.
         </p>
-        
+
         {!serverReady && (
-          <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-md">
-            El servidor de conversión no está disponible. Por favor, inténtelo más tarde.
+          <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-lg">
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              </svg>
+              <span className="text-sm font-medium">El servidor de conversión no está disponible. Por favor, inténtelo más tarde.</span>
+            </div>
           </div>
         )}
       </div>
 
+      {/* Alert Messages */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-6">
-          {error}
+        <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-lg">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+            </svg>
+            <span className="text-sm font-medium">{error}</span>
+          </div>
         </div>
       )}
 
       {success && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md mb-6">
-          {success}
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span className="text-sm font-medium">{success}</span>
+          </div>
         </div>
       )}
 
-      <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
-        <div className="px-6 py-5 border-b border-[#e5e7eb]">
-          <h3 className="font-medium text-[#101418]">Seleccionar archivo PDF para dividir</h3>
-        </div>
-        <div className="p-6 flex flex-col space-y-4">
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={!serverReady}
-            className={`relative w-full bg-[#f9fafb] border border-dashed border-[#d1d5db] rounded-lg py-12 flex flex-col items-center justify-center ${!serverReady ? 'cursor-not-allowed opacity-60' : 'cursor-pointer hover:bg-[#f3f4f6] transition-colors'}`}
-          >
-            <svg className="w-10 h-10 text-[#9ca3af]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+      {/* Upload Section */}
+      <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm">
+        <div className="px-6 py-4 border-b border-border bg-muted/30">
+          <h3 className="font-semibold text-card-foreground flex items-center gap-2">
+            <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-            <span className="mt-2 text-sm font-medium text-[#6b7280]">
-              Haz clic para seleccionar un archivo PDF
-            </span>
-            <span className="mt-1 text-xs text-[#9ca3af]">
-              Selecciona un archivo PDF para dividirlo
-            </span>
-          </button>
+            Seleccionar archivo PDF para dividir
+          </h3>
+        </div>
+        <div className="p-6 space-y-6">
+          {/* Drop zone */}
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-200 ${
+              !serverReady
+                ? 'border-muted bg-muted/20 cursor-not-allowed opacity-60'
+                : 'border-border hover:border-primary/50 hover:bg-muted/30'
+            }`}
+          >
+            <div className="text-muted-foreground mb-4">
+              <svg className="mx-auto h-16 w-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+            </div>
+            <div className="text-center">
+              <p className="text-foreground mb-2">
+                <span className="font-medium">Haz clic para seleccionar</span> un archivo PDF
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Selecciona un archivo PDF para dividirlo en múltiples documentos
+              </p>
+            </div>
+          </div>
           <input
             type="file"
             accept="application/pdf"
@@ -388,23 +433,23 @@ const PdfSplit: React.FC = () => {
           />
 
           {selectedFile && (
-            <div className="mt-4 space-y-4">
-              <div className="pt-2">
-                <h4 className="text-sm font-medium text-[#374151] mb-2">
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-sm font-medium text-foreground mb-2">
                   Archivo seleccionado:
                 </h4>
-                <div className="border border-[#e5e7eb] rounded-lg p-3 flex items-center">
-                  <svg className="w-6 h-6 mr-3 text-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div className="border border-border rounded-lg p-3 flex items-center bg-background">
+                  <svg className="w-6 h-6 mr-3 text-destructive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                     <polyline points="14 2 14 8 20 8"></polyline>
                     <path d="M9 15h6"></path>
                     <path d="M9 11h6"></path>
                   </svg>
                   <div>
-                    <div className="text-sm font-medium text-[#111827]">
+                    <div className="text-sm font-medium text-foreground">
                       {selectedFile.name}
                     </div>
-                    <div className="text-xs text-[#6b7280]">
+                    <div className="text-xs text-muted-foreground">
                       {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                     </div>
                   </div>
@@ -413,38 +458,40 @@ const PdfSplit: React.FC = () => {
 
               {isLoading ? (
                 <div className="flex items-center justify-center py-10">
-                  <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#1d4ed8]"></div>
-                  <span className="ml-3 text-sm text-[#374151]">Cargando miniaturas...</span>
+                  <svg className="w-8 h-8 animate-spin text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  <span className="ml-3 text-sm text-foreground">Cargando miniaturas...</span>
                 </div>
               ) : (
                 <>
                   {thumbnails.length > 0 && (
-                    <div className="pt-4">
-                      <h4 className="text-sm font-medium text-[#374151] mb-2">
+                    <div className="space-y-4">
+                      <h4 className="text-sm font-medium text-foreground">
                         Selecciona las páginas a extraer:
                       </h4>
-                      <div className="border border-[#e5e7eb] rounded-lg p-4 bg-gray-50">
+                      <div className="border border-border rounded-lg p-4 bg-muted/20">
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-h-96 overflow-y-auto p-2">
                           {thumbnails.map((thumb) => (
-                            <div 
+                            <div
                               key={`page_${thumb.pageNumber}`}
                               onClick={() => togglePageSelection(thumb.pageNumber)}
-                              className={`relative cursor-pointer rounded-md overflow-hidden transition-all ${
-                                selectedPages.includes(thumb.pageNumber) 
-                                  ? 'ring-2 ring-[#1d4ed8] ring-offset-1' 
-                                  : 'hover:opacity-80 border border-gray-200'
+                              className={`relative cursor-pointer rounded-lg overflow-hidden transition-all duration-200 ${
+                                selectedPages.includes(thumb.pageNumber)
+                                  ? 'ring-2 ring-primary ring-offset-2 shadow-md'
+                                  : 'hover:opacity-80 border border-border hover:border-primary/50 shadow-sm'
                               }`}
                             >
-                              <img 
-                                src={thumb.dataUrl} 
+                              <img
+                                src={thumb.dataUrl}
                                 alt={`Página ${thumb.pageNumber}`}
-                                className="w-full h-auto object-contain bg-white"
+                                className="w-full h-auto object-contain bg-background"
                               />
-                              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 text-center">
+                              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white text-xs py-1 text-center">
                                 Página {thumb.pageNumber}
                               </div>
                               {selectedPages.includes(thumb.pageNumber) && (
-                                <div className="absolute top-2 right-2 bg-[#1d4ed8] rounded-full p-1 w-5 h-5 flex items-center justify-center text-white">
+                                <div className="absolute top-2 right-2 bg-primary rounded-full p-1 w-5 h-5 flex items-center justify-center text-primary-foreground shadow-sm">
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
                                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                   </svg>
@@ -454,14 +501,22 @@ const PdfSplit: React.FC = () => {
                           ))}
                         </div>
                       </div>
-                      <p className="mt-1 text-xs text-[#6b7280]">
-                        Haz clic en las páginas para seleccionarlas. Las páginas seleccionadas se extraerán al dividir el PDF.
-                      </p>
+
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <div className="flex items-start gap-3">
+                          <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                          </svg>
+                          <p className="text-sm text-blue-700">
+                            <strong>Consejo:</strong> Haz clic en las páginas para seleccionarlas. Las páginas seleccionadas se extraerán al dividir el PDF.
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   )}
 
-                  <div className="pt-4">
-                    <label htmlFor="page-ranges" className="block text-sm font-medium text-[#374151] mb-2">
+                  <div className="space-y-2">
+                    <label htmlFor="page-ranges" className="block text-sm font-medium text-foreground">
                       Rangos de páginas:
                     </label>
                     <input
@@ -470,34 +525,41 @@ const PdfSplit: React.FC = () => {
                       value={pageRanges}
                       onChange={(e) => handleRangeInput(e.target.value)}
                       placeholder="Ejemplo: 1-3,5,7-9"
-                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full p-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring transition-colors"
                     />
-                    <p className="mt-1 text-xs text-[#6b7280]">
+                    <p className="text-xs text-muted-foreground">
                       Introduce los rangos de páginas separados por comas. Por ejemplo: 1-3,5,7-9
                     </p>
                   </div>
 
-                  <div className="pt-4">
+                  {/* Process Button */}
+                  <div className="space-y-4">
                     <button
                       onClick={splitPdf}
                       disabled={isProcessing || !pageRanges.trim() || selectedPages.length === 0 || !serverReady}
-                      className={`w-full py-2 px-4 rounded-md font-medium ${
+                      className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
                         isProcessing || !pageRanges.trim() || selectedPages.length === 0 || !serverReady
-                          ? 'bg-[#e5e7eb] text-[#9ca3af] cursor-not-allowed' 
-                          : 'bg-[#1d4ed8] text-white hover:bg-[#1e40af] transition-colors'
+                          ? 'bg-muted text-muted-foreground cursor-not-allowed'
+                          : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md'
                       }`}
                     >
                       {isProcessing ? (
-                        <div className="flex items-center justify-center">
-                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        <>
+                          <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                           </svg>
                           Procesando...
-                        </div>
-                      ) : 'Dividir PDF'}
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Dividir PDF
+                        </>
+                      )}
                     </button>
-                    <p className="text-xs text-[#6b7280] mt-2 text-center">
+                    <p className="text-xs text-muted-foreground text-center">
                       Recibirás un archivo ZIP con los PDFs divididos según las páginas seleccionadas.
                     </p>
                   </div>
@@ -508,33 +570,75 @@ const PdfSplit: React.FC = () => {
         </div>
       </div>
       
-      {/* Explicación del funcionamiento */}
-      <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden mt-6">
-        <div className="px-6 py-5 border-b border-[#e5e7eb]">
-          <h3 className="font-medium text-[#101418]">¿Cómo funciona la división de PDFs?</h3>
+      {/* Information Section */}
+      <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm">
+        <div className="px-6 py-4 border-b border-border bg-muted/30">
+          <h3 className="font-semibold text-card-foreground flex items-center gap-2">
+            <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            ¿Cómo funciona la división de PDFs?
+          </h3>
         </div>
-        <div className="p-6 space-y-4 text-[#374151]">
-          <p className="text-sm">
-            La división de archivos PDF es un proceso que permite extraer páginas específicas de un documento para 
+        <div className="p-6 space-y-6">
+          <p className="text-sm text-muted-foreground">
+            La división de archivos PDF es un proceso que permite extraer páginas específicas de un documento para
             crear nuevos archivos PDF independientes. El proceso funciona así:
           </p>
-          
-          <ol className="list-decimal pl-5 space-y-2 text-sm">
-            <li>
-              <span className="font-medium">Previsualización:</span> Selecciona un PDF para ver todas sus páginas en miniatura.
-            </li>
-            <li>
-              <span className="font-medium">Selección visual:</span> Haz clic en las páginas que deseas extraer, o introduce los rangos manualmente.
-            </li>
-            <li>
-              <span className="font-medium">Extracción de páginas:</span> El sistema procesa tu documento original y crea nuevos archivos 
-              PDF que contienen solo las páginas que has seleccionado.
-            </li>
-            <li>
-              <span className="font-medium">Descarga automática:</span> Los archivos resultantes se descargan a tu dispositivo en un archivo ZIP,
-              que contiene un PDF separado por cada rango especificado.
-            </li>
-          </ol>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">1</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">Previsualización</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Selecciona un PDF para ver todas sus páginas en miniatura.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">2</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">Selección visual</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Haz clic en las páginas que deseas extraer, o introduce los rangos manualmente.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">3</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">Extracción de páginas</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    El sistema procesa tu documento y crea nuevos archivos PDF con las páginas seleccionadas.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">4</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">Descarga automática</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Los archivos resultantes se descargan en un ZIP con un PDF por cada rango especificado.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

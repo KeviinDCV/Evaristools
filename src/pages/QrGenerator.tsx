@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import QRCode from 'qrcode-generator';
+import { Link } from 'react-router-dom';
 
 const QrGenerator: React.FC = () => {
   const [text, setText] = useState('');
@@ -9,12 +10,12 @@ const QrGenerator: React.FC = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Configuración fija (no modificable por el usuario)
+  // Configuración fija usando nuestro sistema de diseño
   const QR_CONFIG = {
     size: 1024, // Muy alta resolución para mejor calidad
     exportSize: 512, // Tamaño final de exportación
     errorLevel: 'H' as const, // Nivel alto para permitir logo más grande
-    foregroundColor: '#2a387f', // Color azul institucional
+    foregroundColor: '#3730a3', // Color primary de nuestro sistema de diseño
     backgroundColor: '#ffffff',
     includeLogo: true,
     logoSizeRatio: 0.18 // 18% del QR para mejor visibilidad
@@ -209,61 +210,101 @@ const QrGenerator: React.FC = () => {
     }
   };
 
-
-
   return (
-    <div className="flex flex-col max-w-[960px] mx-auto">
-      <div className="flex flex-col space-y-2 mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Generador de QR Institucional</h1>
-        <p className="text-[#5c728a] text-sm">
+    <div className="flex flex-col max-w-[960px] mx-auto space-y-6">
+      {/* Back Button */}
+      <div className="flex items-center">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors rounded-lg hover:bg-muted/50"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Volver a herramientas
+        </Link>
+      </div>
+
+      {/* Header Section */}
+      <div className="space-y-3">
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground">Generador de QR Institucional</h1>
+        <p className="text-muted-foreground text-sm md:text-base max-w-2xl">
           Genera códigos QR personalizados con el logo institucional. Simplemente ingresa el texto o URL y obtén un código QR de alta calidad.
         </p>
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-6">
+        <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-lg mb-6 flex items-center gap-2">
+          <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
           {error}
         </div>
       )}
 
       {success && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md mb-6">
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6 flex items-center gap-2">
+          <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
           {success}
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Panel izquierdo - Configuración */}
-        <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
-          <div className="px-6 py-5 border-b border-[#e5e7eb]">
-            <h3 className="font-medium text-[#101418]">Configuración del QR</h3>
+        <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm">
+          <div className="px-6 py-4 border-b border-border bg-muted/30">
+            <h3 className="font-semibold text-card-foreground flex items-center gap-2">
+              <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+              </svg>
+              Configuración del QR
+            </h3>
           </div>
-          <div className="p-6 space-y-4">
+          <div className="p-6 space-y-6">
             {/* Texto del QR */}
-            <div>
-              <label className="block text-sm font-medium text-[#374151] mb-2">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">
                 Texto o URL
               </label>
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Ingresa el texto o URL para el código QR..."
-                className="w-full p-3 border border-[#e5e7eb] rounded-md text-[#374151] focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                className="w-full p-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring resize-none transition-colors"
                 rows={4}
               />
-              <p className="text-xs text-[#6b7280] mt-1">
+              <p className="text-xs text-muted-foreground">
                 Puede ser texto, URL, número de teléfono, email, etc.
               </p>
             </div>
 
             {/* Información de configuración fija */}
-            <div className="bg-blue-50 border border-blue-200 p-4 rounded-md">
-              <h4 className="text-sm font-medium text-blue-800 mb-2">Configuración Institucional</h4>
-              <ul className="text-sm text-blue-700 space-y-1">
-                <li>• <strong>Color:</strong> Azul institucional (#2a387f)</li>
-                <li>• <strong>Resolución:</strong> Ultra alta calidad (512x512px)</li>
-                <li>• <strong>Logo:</strong> Incluido automáticamente con máxima nitidez</li>
-                <li>• <strong>Corrección de errores:</strong> Nivel alto (30%)</li>
+            <div className="bg-accent/50 border border-accent rounded-lg p-4">
+              <h4 className="text-sm font-semibold text-accent-foreground mb-3 flex items-center gap-2">
+                <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                Configuración Institucional
+              </h4>
+              <ul className="text-sm text-muted-foreground space-y-2">
+                <li className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-primary flex-shrink-0"></div>
+                  <span><strong className="text-foreground">Color:</strong> Primary institucional (#3730a3)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-green-500 flex-shrink-0"></div>
+                  <span><strong className="text-foreground">Resolución:</strong> Ultra alta calidad (512x512px)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-blue-500 flex-shrink-0"></div>
+                  <span><strong className="text-foreground">Logo:</strong> Incluido automáticamente con máxima nitidez</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-purple-500 flex-shrink-0"></div>
+                  <span><strong className="text-foreground">Corrección de errores:</strong> Nivel alto (30%)</span>
+                </li>
               </ul>
             </div>
 
@@ -271,26 +312,49 @@ const QrGenerator: React.FC = () => {
             <button
               onClick={generateQR}
               disabled={!text.trim() || isGenerating}
-              className={`w-full py-3 px-4 rounded-md font-medium transition-colors ${
+              className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
                 !text.trim() || isGenerating
-                  ? 'bg-[#e5e7eb] text-[#9ca3af] cursor-not-allowed'
-                  : 'bg-blue-600 text-white hover:bg-blue-700'
+                  ? 'bg-muted text-muted-foreground cursor-not-allowed'
+                  : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md'
               }`}
             >
-              {isGenerating ? 'Generando...' : 'Generar Código QR'}
+              {isGenerating ? (
+                <>
+                  <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  Generando...
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                  </svg>
+                  Generar Código QR
+                </>
+              )}
             </button>
           </div>
         </div>
 
         {/* Panel derecho - Vista previa */}
-        <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
-          <div className="px-6 py-5 border-b border-[#e5e7eb] flex justify-between items-center">
-            <h3 className="font-medium text-[#101418]">Vista Previa del QR</h3>
+        <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm">
+          <div className="px-6 py-4 border-b border-border bg-muted/30 flex justify-between items-center">
+            <h3 className="font-semibold text-card-foreground flex items-center gap-2">
+              <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              Vista Previa del QR
+            </h3>
             {qrDataUrl && (
               <button
                 onClick={downloadQR}
-                className="py-1 px-3 text-xs rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm"
               >
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
                 Descargar
               </button>
             )}
@@ -306,13 +370,13 @@ const QrGenerator: React.FC = () => {
                   <img
                     src={qrDataUrl}
                     alt="Código QR generado"
-                    className="border border-[#e5e7eb] rounded-lg shadow-xs"
+                    className="border border-border rounded-lg shadow-sm"
                     style={{ maxWidth: '300px', maxHeight: '300px', width: '100%' }}
                   />
                 </div>
               ) : (
-                <div className="w-64 h-64 border-2 border-dashed border-[#d1d5db] rounded-lg flex items-center justify-center mb-4">
-                  <div className="text-center text-[#9ca3af]">
+                <div className="w-64 h-64 border-2 border-dashed border-muted rounded-lg flex items-center justify-center mb-4 bg-muted/20">
+                  <div className="text-center text-muted-foreground">
                     <svg className="w-12 h-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
                     </svg>
@@ -323,10 +387,10 @@ const QrGenerator: React.FC = () => {
 
               {qrDataUrl && (
                 <div className="text-center">
-                  <p className="text-sm text-[#6b7280] mb-2">
+                  <p className="text-sm text-muted-foreground mb-2">
                     Código QR generado con logo institucional
                   </p>
-                  <p className="text-xs text-[#9ca3af]">
+                  <p className="text-xs text-muted-foreground">
                     Resolución: 512x512px • Formato: PNG
                   </p>
                 </div>
@@ -336,32 +400,58 @@ const QrGenerator: React.FC = () => {
         </div>
       </div>
 
-      {/* Canvas oculto para generar el QR */}
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
-
       {/* Información adicional */}
-      <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden mt-6">
-        <div className="px-6 py-5 border-b border-[#e5e7eb]">
-          <h3 className="font-medium text-[#101418]">¿Cómo usar el generador de QR?</h3>
+      <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm mt-6">
+        <div className="px-6 py-4 border-b border-border bg-muted/30">
+          <h3 className="font-semibold text-card-foreground flex items-center gap-2">
+            <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            ¿Cómo usar el generador de QR?
+          </h3>
         </div>
-        <div className="p-6 space-y-4 text-[#374151]">
-          <p className="text-sm">
+        <div className="p-6 space-y-4">
+          <p className="text-sm text-muted-foreground">
             Este generador crea códigos QR personalizados con el logo institucional de forma automática:
           </p>
 
-          <ol className="list-decimal pl-5 space-y-2 text-sm">
-            <li>
-              <span className="font-medium">Ingresa el contenido:</span> Puede ser texto, URL, número de teléfono, email, etc.
-            </li>
-            <li>
-              <span className="font-medium">Genera el QR:</span> Haz clic en "Generar Código QR" para crear tu código personalizado.
-            </li>
-            <li>
-              <span className="font-medium">Descarga o copia:</span> Usa los botones para descargar el archivo PNG o copiarlo al portapapeles.
-            </li>
-          </ol>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
+              <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <span className="text-primary font-bold text-sm">1</span>
+              </div>
+              <div>
+                <h4 className="font-medium text-foreground text-sm">Ingresa el contenido</h4>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Puede ser texto, URL, número de teléfono, email, etc.
+                </p>
+              </div>
+            </div>
 
+            <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
+              <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <span className="text-primary font-bold text-sm">2</span>
+              </div>
+              <div>
+                <h4 className="font-medium text-foreground text-sm">Genera el QR</h4>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Haz clic en "Generar Código QR" para crear tu código personalizado.
+                </p>
+              </div>
+            </div>
 
+            <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
+              <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <span className="text-primary font-bold text-sm">3</span>
+              </div>
+              <div>
+                <h4 className="font-medium text-foreground text-sm">Descarga</h4>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Usa el botón para descargar el archivo PNG de alta calidad.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

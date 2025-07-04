@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Tesseract from 'tesseract.js';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel } from 'docx';
 import { saveAs } from 'file-saver';
@@ -272,45 +273,80 @@ const ImageToWord: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col max-w-[960px] mx-auto">
-      <div className="flex flex-col space-y-2 mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Imágenes a Word</h1>
-        <p className="text-[#5c728a] text-sm">
+    <div className="flex flex-col max-w-7xl mx-auto space-y-6">
+      {/* Back Button */}
+      <div className="flex items-center">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors rounded-lg hover:bg-muted/50"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Volver a herramientas
+        </Link>
+      </div>
+
+      {/* Header Section */}
+      <div className="space-y-3">
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground">Imágenes a Word</h1>
+        <p className="text-muted-foreground text-sm md:text-base max-w-2xl">
           Convierte imágenes a documentos de Word mediante reconocimiento óptico de caracteres (OCR).
-          El texto extraído de las imágenes será incluido en un documento Word editable.
+          El texto extraído se incluirá en un documento Word completamente editable.
         </p>
       </div>
 
+      {/* Alert Messages */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-6">
-          {error}
+        <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-lg">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+            </svg>
+            <span className="text-sm font-medium">{error}</span>
+          </div>
         </div>
       )}
 
       {success && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md mb-6">
-          {success}
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span className="text-sm font-medium">{success}</span>
+          </div>
         </div>
       )}
 
-      <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
-        <div className="px-6 py-5 border-b border-[#e5e7eb]">
-          <h3 className="font-medium text-[#101418]">Cargar imágenes para convertir</h3>
+      {/* Main Content */}
+      <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm">
+        <div className="px-6 py-4 border-b border-border bg-muted/30">
+          <h3 className="font-semibold text-card-foreground flex items-center gap-2">
+            <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Cargar imágenes para convertir
+          </h3>
         </div>
-        <div className="p-6 flex flex-col space-y-4">
+        <div className="p-6 space-y-6">
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="relative w-full bg-[#f9fafb] border border-dashed border-[#d1d5db] rounded-lg py-12 flex flex-col items-center justify-center cursor-pointer hover:bg-[#f3f4f6] transition-colors"
+            className="relative w-full bg-muted/50 border-2 border-dashed border-border rounded-lg py-12 flex flex-col items-center justify-center cursor-pointer hover:bg-muted/70 hover:border-primary transition-all duration-200 group"
           >
-            <svg className="w-10 h-10 text-[#9ca3af]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-            </svg>
-            <span className="mt-2 text-sm font-medium text-[#6b7280]">
-              Haz clic para seleccionar imágenes
-            </span>
-            <span className="mt-1 text-xs text-[#9ca3af]">
-              PNG, JPG, GIF hasta 10MB (múltiples archivos permitidos)
-            </span>
+            <div className="text-muted-foreground group-hover:text-primary transition-colors">
+              <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div className="mt-4 text-center">
+              <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                Haz clic para seleccionar imágenes
+              </span>
+              <p className="mt-1 text-xs text-muted-foreground">
+                PNG, JPG, GIF, BMP, WEBP hasta 10MB (múltiples archivos permitidos)
+              </p>
+            </div>
           </button>
           <input
             type="file"
@@ -321,66 +357,78 @@ const ImageToWord: React.FC = () => {
             ref={fileInputRef}
           />
 
+          {/* Images Preview */}
           {images.length > 0 && (
             <div className="space-y-4">
-              <div className="pt-4">
-                <h4 className="text-sm font-medium text-[#374151] mb-2">
-                  Imágenes seleccionadas ({images.length}):
+              <div className="space-y-3">
+                <h4 className="text-sm font-medium text-foreground flex items-center gap-2">
+                  <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                  Imágenes seleccionadas ({images.length})
                 </h4>
-                <div className="border border-[#e5e7eb] rounded-lg p-2 max-h-64 overflow-y-auto">
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                <div className="border border-border rounded-lg p-3 max-h-64 overflow-y-auto bg-muted/20">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                     {images.map((img, index) => (
-                      <div key={`${img.file.name}-${index}`} className="relative rounded-lg overflow-hidden border border-[#e5e7eb] p-1">
-                        <img 
-                          src={img.url} 
-                          alt={img.file.name}
-                          className="h-24 w-full object-contain"
-                        />
-                        <button 
-                          onClick={() => handleRemoveImage(index)}
-                          className="absolute top-1 right-1 bg-black bg-opacity-40 hover:bg-red-500 hover:bg-opacity-60 rounded-full p-1 text-white transition-colors"
-                          aria-label="Eliminar imagen"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M18 6L6 18M6 6l12 12"></path>
-                          </svg>
-                        </button>
-                        <div className="text-xs text-center mt-1 truncate px-1">
-                          {img.file.name}
+                      <div key={`${img.file.name}-${index}`} className="relative group">
+                        <div className="relative rounded-lg overflow-hidden border border-border bg-background">
+                          <img
+                            src={img.url}
+                            alt={img.file.name}
+                            className="h-24 w-full object-contain p-2"
+                          />
+                          <button
+                            onClick={() => handleRemoveImage(index)}
+                            className="absolute top-1 right-1 bg-destructive/80 hover:bg-destructive rounded-full p-1 text-destructive-foreground transition-colors opacity-0 group-hover:opacity-100"
+                            aria-label="Eliminar imagen"
+                          >
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                          <div className="absolute bottom-0 left-0 right-0 bg-background/90 text-foreground text-xs p-1 truncate border-t border-border">
+                            {img.file.name}
+                          </div>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
-              
-              <div className="border-t border-[#e5e7eb] pt-4">
-                <h4 className="text-sm font-medium text-[#374151] mb-3">
-                  Opciones de Conversión:
+
+              {/* Configuration Section */}
+              <div className="border-t border-border pt-6">
+                <h4 className="text-sm font-medium text-foreground mb-4 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Opciones de conversión
                 </h4>
-                <div className="space-y-4">
-                  <div>
-                    <label htmlFor="document-title" className="block text-sm font-medium text-[#374151] mb-1">
-                      Título del Documento
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label htmlFor="document-title" className="text-sm font-medium text-foreground">
+                      Título del documento:
                     </label>
                     <input
                       id="document-title"
                       type="text"
                       value={documentTitle}
                       onChange={(e) => setDocumentTitle(e.target.value)}
-                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full p-3 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
+                      placeholder="Ingresa el título del documento"
                     />
                   </div>
-                  
-                  <div>
-                    <label htmlFor="ocr-language" className="block text-sm font-medium text-[#374151] mb-1">
-                      Idioma para OCR
+
+                  <div className="space-y-2">
+                    <label htmlFor="ocr-language" className="text-sm font-medium text-foreground">
+                      Idioma para OCR:
                     </label>
                     <select
                       id="ocr-language"
                       value={ocrLanguage}
                       onChange={(e) => setOcrLanguage(e.target.value)}
-                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full p-3 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
                     >
                       {languages.map(lang => (
                         <option key={lang.code} value={lang.code}>
@@ -389,106 +437,143 @@ const ImageToWord: React.FC = () => {
                       ))}
                     </select>
                   </div>
-                  
-                  <div>
-                    <label htmlFor="include-images" className="block text-sm font-medium text-[#374151] mb-1">
-                      Incluir imágenes en el documento
+                </div>
+
+                <div className="mt-4 space-y-4">
+                  <div className="space-y-2">
+                    <label htmlFor="include-images" className="text-sm font-medium text-foreground">
+                      Incluir imágenes en el documento:
                     </label>
                     <select
                       id="include-images"
                       value={includeImages ? 'yes' : 'no'}
                       onChange={(e) => setIncludeImages(e.target.value === 'yes')}
-                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full p-3 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
                     >
-                      <option value="yes">Sí, incluir imágenes</option>
-                      <option value="no">No, solo incluir texto</option>
+                      <option value="yes">Sí, incluir imágenes originales</option>
+                      <option value="no">No, solo incluir texto extraído</option>
                     </select>
                   </div>
-                  
-                  <div className="flex items-center">
+
+                  {/* Advanced Settings Toggle */}
+                  <div className="flex items-center space-x-3 p-3 bg-muted/30 rounded-lg border border-border">
                     <input
                       type="checkbox"
                       id="use-advanced-settings"
                       checked={useAdvancedSettings}
                       onChange={(e) => setUseAdvancedSettings(e.target.checked)}
-                      className="h-4 w-4 text-blue-600 rounded-sm border-gray-300 focus:ring-blue-500"
+                      className="w-4 h-4 text-primary border-2 border-input rounded focus:ring-2 focus:ring-ring"
                     />
-                    <label htmlFor="use-advanced-settings" className="ml-2 text-sm text-[#374151]">
-                      Usar configuración avanzada
+                    <label htmlFor="use-advanced-settings" className="text-sm font-medium text-foreground cursor-pointer">
+                      Configuración avanzada de OCR
                     </label>
                   </div>
-                  
+
+                  {/* Advanced Settings Panel */}
                   {useAdvancedSettings && (
-                    <div className="pt-2 space-y-3 border-t border-[#e5e7eb]">
-                      <div className="text-sm text-center text-[#6b7280]">Opciones avanzadas</div>
-                      
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          id="enhance-contrast"
-                          checked={enhanceContrast}
-                          onChange={(e) => setEnhanceContrast(e.target.checked)}
-                          className="h-4 w-4 text-blue-600 rounded-sm border-gray-300 focus:ring-blue-500"
-                        />
-                        <label htmlFor="enhance-contrast" className="ml-2 text-sm text-[#374151]">
-                          Mejorar contraste
-                        </label>
+                    <div className="space-y-4 p-4 bg-muted/20 border border-border rounded-lg">
+                      <div className="flex items-center gap-2 pb-2 border-b border-border">
+                        <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <h4 className="text-sm font-medium text-foreground">Opciones avanzadas de OCR</h4>
                       </div>
-                      
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          id="enable-deskew"
-                          checked={enableDeskew}
-                          onChange={(e) => setEnableDeskew(e.target.checked)}
-                          className="h-4 w-4 text-blue-600 rounded-sm border-gray-300 focus:ring-blue-500"
-                        />
-                        <label htmlFor="enable-deskew" className="ml-2 text-sm text-[#374151]">
-                          Corregir inclinación (deskew)
-                        </label>
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="preprocessing-mode" className="block text-sm font-medium text-[#374151] mb-1">
-                          Modo de segmentación
-                        </label>
-                        <select
-                          id="preprocessing-mode"
-                          value={preprocessingMode}
-                          onChange={(e) => setPreprocessingMode(e.target.value)}
-                          className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
-                        >
-                          <option value="1">Segmentación automática (recomendado)</option>
-                          <option value="4">Columna simple</option>
-                          <option value="6">Bloque de texto uniforme</option>
-                          <option value="11">Texto disperso</option>
-                          <option value="13">Línea de texto sin separación</option>
-                        </select>
+
+                      <div className="grid grid-cols-1 gap-4">
+                        <div className="flex items-center space-x-3">
+                          <input
+                            type="checkbox"
+                            id="enhance-contrast"
+                            checked={enhanceContrast}
+                            onChange={(e) => setEnhanceContrast(e.target.checked)}
+                            className="w-4 h-4 text-primary border-2 border-input rounded focus:ring-2 focus:ring-ring"
+                          />
+                          <label htmlFor="enhance-contrast" className="text-sm text-foreground cursor-pointer">
+                            Mejorar contraste automáticamente
+                          </label>
+                        </div>
+
+                        <div className="flex items-center space-x-3">
+                          <input
+                            type="checkbox"
+                            id="enable-deskew"
+                            checked={enableDeskew}
+                            onChange={(e) => setEnableDeskew(e.target.checked)}
+                            className="w-4 h-4 text-primary border-2 border-input rounded focus:ring-2 focus:ring-ring"
+                          />
+                          <label htmlFor="enable-deskew" className="text-sm text-foreground cursor-pointer">
+                            Corregir inclinación del texto (deskew)
+                          </label>
+                        </div>
+
+                        <div className="space-y-2">
+                          <label htmlFor="preprocessing-mode" className="text-sm font-medium text-foreground">
+                            Modo de segmentación de página:
+                          </label>
+                          <select
+                            id="preprocessing-mode"
+                            value={preprocessingMode}
+                            onChange={(e) => setPreprocessingMode(e.target.value)}
+                            className="w-full p-3 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
+                          >
+                            <option value="1">Segmentación automática (recomendado)</option>
+                            <option value="4">Columna simple</option>
+                            <option value="6">Bloque de texto uniforme</option>
+                            <option value="11">Texto disperso</option>
+                            <option value="13">Línea de texto sin separación</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   )}
                 </div>
               </div>
-              
-              <div className="border-t border-[#e5e7eb] pt-4">
+
+              {/* Process Button */}
+              <div className="border-t border-border pt-6">
                 <button
                   onClick={convertImagesToWord}
                   disabled={isProcessing}
-                  className={`w-full py-2 px-4 rounded-md font-medium ${isProcessing ? 'bg-[#e5e7eb] text-[#9ca3af] cursor-not-allowed' : 'bg-[#1d4ed8] text-white hover:bg-[#1e40af] transition-colors'}`}
+                  className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
+                    isProcessing
+                      ? 'bg-muted text-muted-foreground cursor-not-allowed'
+                      : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md'
+                  }`}
                 >
-                  {isProcessing ? 'Procesando...' : 'Convertir a Word'}
+                  {isProcessing ? (
+                    <>
+                      <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      Procesando...
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      Convertir a Word
+                    </>
+                  )}
                 </button>
-                
+
+                {/* Progress Bar */}
                 {isProcessing && (
-                  <div className="flex flex-col items-center py-4">
-                    <div className="w-full bg-[#e5e7eb] rounded-full h-2.5">
-                      <div 
-                        className="bg-blue-600 h-2.5 rounded-full" 
-                        style={{ width: `${currentProgress}%` }}
-                      ></div>
+                  <div className="space-y-3 p-4 bg-muted/30 rounded-lg border border-border mt-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-foreground">Progreso de conversión</span>
+                      <span className="text-sm text-muted-foreground">{currentProgress}%</span>
                     </div>
-                    <span className="text-sm text-[#6b7280] mt-2">{currentProgress}% Completado</span>
-                    <span className="text-xs text-[#6b7280] mt-1">{processingStatus}</span>
+                    <div className="w-full bg-muted rounded-full h-2">
+                      <div
+                        className="bg-primary h-2 rounded-full transition-all duration-300 ease-out"
+                        style={{ width: `${currentProgress}%` }}
+                      />
+                    </div>
+                    <div className="text-center">
+                      <span className="text-xs text-muted-foreground">{processingStatus}</span>
+                    </div>
                   </div>
                 )}
               </div>
@@ -496,36 +581,90 @@ const ImageToWord: React.FC = () => {
           )}
         </div>
       </div>
-      
-      {/* Explicación del funcionamiento */}
-      <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden mt-6">
-        <div className="px-6 py-5 border-b border-[#e5e7eb]">
-          <h3 className="font-medium text-[#101418]">¿Cómo funciona la conversión de Imágenes a Word?</h3>
+
+      {/* Information Section */}
+      <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm">
+        <div className="px-6 py-4 border-b border-border bg-muted/30">
+          <h3 className="font-semibold text-card-foreground flex items-center gap-2">
+            <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            ¿Cómo funciona la conversión de Imágenes a Word?
+          </h3>
         </div>
-        <div className="p-6 space-y-4 text-[#374151]">
-          <p className="text-sm">
-            La conversión de imágenes a documentos Word es un proceso que combina reconocimiento óptico de caracteres (OCR) 
-            con la generación de documentos editables. El proceso funciona así:
+        <div className="p-6 space-y-6">
+          <p className="text-sm text-muted-foreground">
+            La conversión de imágenes a documentos Word combina tecnología OCR avanzada con generación de documentos editables:
           </p>
-          
-          <ol className="list-decimal pl-5 space-y-2 text-sm">
-            <li>
-              <span className="font-medium">Preprocesamiento de imágenes:</span> Cada imagen se optimiza para mejorar la calidad 
-              del reconocimiento, ajustando el contraste y corrigiendo la inclinación si es necesario.
-            </li>
-            <li>
-              <span className="font-medium">OCR avanzado:</span> Se utiliza tecnología de reconocimiento óptico de caracteres basada 
-              en redes neuronales para identificar el texto presente en cada imagen.
-            </li>
-            <li>
-              <span className="font-medium">Estructuración del contenido:</span> El texto extraído se organiza en párrafos y secciones, 
-              preservando el formato básico del documento original.
-            </li>
-            <li>
-              <span className="font-medium">Generación del documento Word:</span> Se crea un archivo DOCX con el texto extraído, 
-              añadiendo encabezados, formatos básicos e imágenes originales si se desea.
-            </li>
-          </ol>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">1</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">Preprocesamiento de imágenes</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Optimización automática de contraste y corrección de inclinación para mejorar la precisión del OCR.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">2</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">OCR con redes neuronales</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Reconocimiento óptico de caracteres usando tecnología LSTM para máxima precisión.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">3</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">Estructuración del contenido</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Organización del texto en párrafos y secciones preservando el formato original.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">4</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">Generación del documento Word</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Creación de archivo DOCX editable con texto extraído, encabezados y formato profesional.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-start gap-3">
+              <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+              <div>
+                <h4 className="font-medium text-blue-800 text-sm">Formatos soportados</h4>
+                <p className="text-xs text-blue-700 mt-1">
+                  <span className="font-medium">Entrada:</span> JPG, PNG, GIF, BMP, WEBP, TIFF (hasta 10MB cada una) •
+                  <span className="font-medium">Salida:</span> Documento Word (.docx) completamente editable
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
