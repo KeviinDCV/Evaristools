@@ -156,7 +156,7 @@ const UnlockPdf: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Ingresa la contraseña del PDF"
-                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                 />
                 <p className="mt-1 text-xs text-[#6b7280]">
                   Introduce la contraseña que protege el documento PDF.

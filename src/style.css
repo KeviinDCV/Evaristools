@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@source "./index.html";
+@source "./src/**/*.{js,ts,jsx,tsx}";
+
+@theme {
+  --font-sans: 'Inter', 'Noto Sans', sans-serif;
+}
 
 :root {
   font-family: 'Inter', 'Noto Sans', sans-serif;
@@ -10,11 +15,7 @@
   background-color: #f8f9fa;
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-}
+/* Body styles moved to ScrollSmoother section */
 
 /* Animación de Fade-in */
 @keyframes fadeIn {
@@ -98,4 +99,40 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* ScrollSmoother Styles */
+.smooth-wrapper {
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.smooth-content {
+  overflow: visible;
+  width: 100%;
+}
+
+/* Ensure proper scrolling behavior */
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  height: 100%;
+  overflow: hidden;
 }

@@ -535,7 +535,7 @@ const RotatePdf: React.FC = () => {
                   <input
                     id="rotate-all"
                     type="checkbox"
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-sm"
                     checked={rotateAllPages}
                     onChange={(e) => {
                       setRotateAllPages(e.target.checked);
@@ -557,7 +557,7 @@ const RotatePdf: React.FC = () => {
                       value={pageRange}
                       onChange={(e) => handleRangeInput(e.target.value)}
                       placeholder="Ej: 1-3,5,7-9"
-                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                     />
                     <p className="mt-1 text-xs text-[#6b7280]">
                       Introduce los rangos de páginas separados por comas. Por ejemplo: 1-3,5,7-9

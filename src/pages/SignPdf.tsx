@@ -474,7 +474,7 @@ const SignPdf: React.FC = () => {
                     <div className="flex items-center justify-between mt-2">
                       <button
                         onClick={clearSignature}
-                        className="px-3 py-1 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded bg-white hover:bg-gray-50 transition-colors"
+                        className="px-3 py-1 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-sm bg-white hover:bg-gray-50 transition-colors"
                       >
                         Limpiar
                       </button>
@@ -497,7 +497,7 @@ const SignPdf: React.FC = () => {
                     value={signatureName}
                     onChange={(e) => setSignatureName(e.target.value)}
                     placeholder="Tu nombre completo"
-                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               )}
@@ -509,7 +509,7 @@ const SignPdf: React.FC = () => {
                 <select
                   value={signaturePosition}
                   onChange={(e) => setSignaturePosition(e.target.value)}
-                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="bottom-right">Inferior derecha</option>
                   <option value="bottom-left">Inferior izquierda</option>

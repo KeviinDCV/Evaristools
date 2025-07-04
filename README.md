@@ -290,13 +290,28 @@ module.exports = {
 
 #### **Acceso a la Aplicación**
 
-1. **Desarrollo Local**:
+1. **Desarrollo Local Completo** (Frontend + Backend):
+   ```bash
+   npm run dev:full
+   # o alternativamente:
+   npm start
+   ```
+   - Frontend: `http://localhost:5173`
+   - Backend: `http://localhost:5000`
+
+2. **Solo Frontend**:
    ```bash
    npm run dev
    ```
-   Acceder a: `http://localhost:3000`
+   Acceder a: `http://localhost:5173`
 
-2. **Producción**:
+3. **Solo Backend**:
+   ```bash
+   npm run server
+   ```
+   API disponible en: `http://localhost:5000`
+
+4. **Producción**:
    Acceder a la URL proporcionada por tu institución
 
 #### **Navegación Principal**
@@ -537,17 +552,39 @@ npm install -g concurrently
 {
   "scripts": {
     "dev": "vite --config vite.config.cjs",
+    "server": "python server.py",
+    "dev:full": "concurrently --names \"SERVER,CLIENT\" --prefix-colors \"blue,green\" \"npm run server\" \"npm run dev\"",
+    "start": "npm run dev:full",
     "build": "tsc && vite build --config vite.config.cjs",
     "preview": "vite preview --config vite.config.cjs",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src --ext ts,tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\"",
     "type-check": "tsc --noEmit",
-    "analyze": "npm run build && npx vite-bundle-analyzer dist",
-    "dev:server": "python server.py",
-    "dev:full": "concurrently \"npm run dev\" \"npm run dev:server\""
+    "analyze": "npm run build && npx vite-bundle-analyzer dist"
   }
 }
+```
+
+#### **Comandos de Ejecución**
+
+```bash
+# Ejecutar solo el frontend (React + Vite)
+npm run dev
+
+# Ejecutar solo el backend (Python Flask)
+npm run server
+
+# Ejecutar ambos servicios simultáneamente (RECOMENDADO)
+npm run dev:full
+# o alternativamente:
+npm start
+
+# Construir para producción
+npm run build
+
+# Vista previa de la construcción
+npm run preview
 ```
 
 ### 📁 Estructura del Proyecto

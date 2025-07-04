@@ -2,11 +2,18 @@
   "name": "evaristools",
   "private": true,
   "version": "0.0.0",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
-    "dev": "vite --config vite.config.cjs",
-    "build": "tsc && vite build --config vite.config.cjs",
-    "preview": "vite preview --config vite.config.cjs"
+    "dev": "vite --config vite.config.js",
+    "server": "python server.py",
+    "dev:full": "concurrently --names \"SERVER,CLIENT\" --prefix-colors \"blue,green\" \"npm run server\" \"npm run dev\"",
+    "start": "npm run dev:full",
+    "dev:frontend": "npm run dev",
+    "dev:backend": "npm run server",
+    "build": "tsc && vite build --config vite.config.js",
+    "preview": "vite preview --config vite.config.js",
+    "clean": "rimraf dist node_modules/.vite",
+    "setup": "npm install && echo 'Frontend configurado. Para el backend, ejecuta: pip install -r requirements.txt'"
   },
   "devDependencies": {
     "@shadcn/ui": "^0.0.4",
@@ -16,8 +23,9 @@
     "@types/react-dom": "^19.1.5",
     "@types/tesseract.js": "^0.0.2",
     "autoprefixer": "^10.4.16",
+    "concurrently": "^9.2.0",
     "postcss": "^8.4.32",
-    "tailwindcss": "^3.3.5",
+    "rimraf": "^6.0.1",
     "typescript": "~5.8.3",
     "vite": "^6.3.5"
   },
@@ -27,12 +35,14 @@
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
     "@mui/system": "^7.1.0",
+    "@tailwindcss/vite": "^4.1.11",
     "canvas": "^3.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "docx": "^9.5.0",
     "file-saver": "^2.0.5",
     "framer-motion": "^12.14.0",
+    "gsap": "^3.13.0",
     "lucide-react": "^0.511.0",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^3.4.120",
@@ -47,6 +57,7 @@
     "react-pdf": "^9.2.1",
     "react-router-dom": "^7.6.0",
     "tailwind-merge": "^3.3.0",
+    "tailwindcss": "^4.1.11",
     "tesseract.js": "^2.1.1"
   }
 }

@@ -368,7 +368,7 @@ const ImageToWord: React.FC = () => {
                       type="text"
                       value={documentTitle}
                       onChange={(e) => setDocumentTitle(e.target.value)}
-                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                     />
                   </div>
                   
@@ -380,7 +380,7 @@ const ImageToWord: React.FC = () => {
                       id="ocr-language"
                       value={ocrLanguage}
                       onChange={(e) => setOcrLanguage(e.target.value)}
-                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                     >
                       {languages.map(lang => (
                         <option key={lang.code} value={lang.code}>
@@ -398,7 +398,7 @@ const ImageToWord: React.FC = () => {
                       id="include-images"
                       value={includeImages ? 'yes' : 'no'}
                       onChange={(e) => setIncludeImages(e.target.value === 'yes')}
-                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                     >
                       <option value="yes">Sí, incluir imágenes</option>
                       <option value="no">No, solo incluir texto</option>
@@ -411,7 +411,7 @@ const ImageToWord: React.FC = () => {
                       id="use-advanced-settings"
                       checked={useAdvancedSettings}
                       onChange={(e) => setUseAdvancedSettings(e.target.checked)}
-                      className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                      className="h-4 w-4 text-blue-600 rounded-sm border-gray-300 focus:ring-blue-500"
                     />
                     <label htmlFor="use-advanced-settings" className="ml-2 text-sm text-[#374151]">
                       Usar configuración avanzada
@@ -428,7 +428,7 @@ const ImageToWord: React.FC = () => {
                           id="enhance-contrast"
                           checked={enhanceContrast}
                           onChange={(e) => setEnhanceContrast(e.target.checked)}
-                          className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                          className="h-4 w-4 text-blue-600 rounded-sm border-gray-300 focus:ring-blue-500"
                         />
                         <label htmlFor="enhance-contrast" className="ml-2 text-sm text-[#374151]">
                           Mejorar contraste
@@ -441,7 +441,7 @@ const ImageToWord: React.FC = () => {
                           id="enable-deskew"
                           checked={enableDeskew}
                           onChange={(e) => setEnableDeskew(e.target.checked)}
-                          className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                          className="h-4 w-4 text-blue-600 rounded-sm border-gray-300 focus:ring-blue-500"
                         />
                         <label htmlFor="enable-deskew" className="ml-2 text-sm text-[#374151]">
                           Corregir inclinación (deskew)
@@ -456,7 +456,7 @@ const ImageToWord: React.FC = () => {
                           id="preprocessing-mode"
                           value={preprocessingMode}
                           onChange={(e) => setPreprocessingMode(e.target.value)}
-                          className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                         >
                           <option value="1">Segmentación automática (recomendado)</option>
                           <option value="4">Columna simple</option>

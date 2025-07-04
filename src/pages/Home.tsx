@@ -192,7 +192,7 @@ export default function Home() {
           <input
             type="text"
             placeholder="Buscar herramienta..."
-            className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+            className="px-4 py-2 border border-gray-300 rounded-lg shadow-xs focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-transparent w-full"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

@@ -228,7 +228,7 @@ const WatermarkPdf: React.FC = () => {
                     value={watermarkText}
                     onChange={(e) => setWatermarkText(e.target.value)}
                     placeholder="Ej: CONFIDENCIAL, BORRADOR, etc."
-                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               ) : (
@@ -295,7 +295,7 @@ const WatermarkPdf: React.FC = () => {
                 <select
                   value={watermarkPosition}
                   onChange={(e) => setWatermarkPosition(e.target.value)}
-                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="center">Centro</option>
                   <option value="top-left">Superior izquierda</option>

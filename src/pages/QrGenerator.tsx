@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { saveAs } from 'file-saver';
+import React, { useState, useRef } from 'react';
 import QRCode from 'qrcode-generator';
 
 const QrGenerator: React.FC = () => {
@@ -249,7 +248,7 @@ const QrGenerator: React.FC = () => {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Ingresa el texto o URL para el código QR..."
-                className="w-full p-3 border border-[#e5e7eb] rounded-md text-[#374151] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                className="w-full p-3 border border-[#e5e7eb] rounded-md text-[#374151] focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500 resize-none"
                 rows={4}
               />
               <p className="text-xs text-[#6b7280] mt-1">
@@ -307,7 +306,7 @@ const QrGenerator: React.FC = () => {
                   <img
                     src={qrDataUrl}
                     alt="Código QR generado"
-                    className="border border-[#e5e7eb] rounded-lg shadow-sm"
+                    className="border border-[#e5e7eb] rounded-lg shadow-xs"
                     style={{ maxWidth: '300px', maxHeight: '300px', width: '100%' }}
                   />
                 </div>

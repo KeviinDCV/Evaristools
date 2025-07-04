@@ -470,7 +470,7 @@ const PdfSplit: React.FC = () => {
                       value={pageRanges}
                       onChange={(e) => handleRangeInput(e.target.value)}
                       placeholder="Ejemplo: 1-3,5,7-9"
-                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                     />
                     <p className="mt-1 text-xs text-[#6b7280]">
                       Introduce los rangos de páginas separados por comas. Por ejemplo: 1-3,5,7-9

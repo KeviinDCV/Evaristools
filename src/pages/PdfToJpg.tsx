@@ -383,13 +383,13 @@ const PdfToJpg: React.FC = () => {
                         <div className="flex space-x-2">
                           <button 
                             onClick={selectAllPages}
-                            className="text-xs py-1 px-2 bg-gray-100 hover:bg-gray-200 rounded text-gray-700"
+                            className="text-xs py-1 px-2 bg-gray-100 hover:bg-gray-200 rounded-sm text-gray-700"
                           >
                             Seleccionar todas
                           </button>
                           <button 
                             onClick={deselectAllPages}
-                            className="text-xs py-1 px-2 bg-gray-100 hover:bg-gray-200 rounded text-gray-700"
+                            className="text-xs py-1 px-2 bg-gray-100 hover:bg-gray-200 rounded-sm text-gray-700"
                           >
                             Deseleccionar todas
                           </button>
@@ -443,7 +443,7 @@ const PdfToJpg: React.FC = () => {
                       value={customRange}
                       onChange={(e) => handleRangeInput(e.target.value)}
                       placeholder="Ejemplo: 1-3,5,7-9"
-                        className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                       />
                       <p className="mt-1 text-xs text-[#6b7280]">
                         Introduce los rangos de páginas separados por comas. Por ejemplo: 1-3,5,7-9
@@ -458,7 +458,7 @@ const PdfToJpg: React.FC = () => {
                     id="image-quality"
                     value={imageQuality}
                     onChange={(e) => setImageQuality(e.target.value)}
-                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="low">Baja (menor tamaño)</option>
                     <option value="medium">Media (recomendado)</option>

@@ -294,7 +294,7 @@ const OcrTool: React.FC = () => {
                   id="language"
                   value={language}
                   onChange={handleLanguageChange}
-                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                 >
                   {languages.map(lang => (
                     <option key={lang.code} value={lang.code}>
@@ -310,7 +310,7 @@ const OcrTool: React.FC = () => {
                   id="use-advanced-settings"
                   checked={useAdvancedSettings}
                   onChange={(e) => setUseAdvancedSettings(e.target.checked)}
-                  className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                  className="h-4 w-4 text-blue-600 rounded-sm border-gray-300 focus:ring-blue-500"
                 />
                 <label htmlFor="use-advanced-settings" className="ml-2 text-sm text-[#374151]">
                   Usar configuración avanzada
@@ -327,7 +327,7 @@ const OcrTool: React.FC = () => {
                       id="enhance-contrast"
                       checked={enhanceContrast}
                       onChange={(e) => setEnhanceContrast(e.target.checked)}
-                      className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                      className="h-4 w-4 text-blue-600 rounded-sm border-gray-300 focus:ring-blue-500"
                     />
                     <label htmlFor="enhance-contrast" className="ml-2 text-sm text-[#374151]">
                       Mejorar contraste
@@ -340,7 +340,7 @@ const OcrTool: React.FC = () => {
                       id="enable-deskew"
                       checked={enableDeskew}
                       onChange={(e) => setEnableDeskew(e.target.checked)}
-                      className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                      className="h-4 w-4 text-blue-600 rounded-sm border-gray-300 focus:ring-blue-500"
                     />
                     <label htmlFor="enable-deskew" className="ml-2 text-sm text-[#374151]">
                       Corregir inclinación (deskew)
@@ -355,7 +355,7 @@ const OcrTool: React.FC = () => {
                       id="preprocessing-mode"
                       value={preprocessingMode}
                       onChange={(e) => setPreprocessingMode(e.target.value)}
-                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                     >
                       <option value="1">Segmentación automática (recomendado)</option>
                       <option value="4">Columna simple</option>
@@ -445,7 +445,7 @@ const OcrTool: React.FC = () => {
                 value={recognizedText}
                 onChange={(e) => setRecognizedText(e.target.value)}
                 placeholder="El texto extraído aparecerá aquí..."
-                className="w-full h-[400px] p-3 border border-[#e5e7eb] rounded-md text-[#374151] bg-[#f9fafb] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full h-[400px] p-3 border border-[#e5e7eb] rounded-md text-[#374151] bg-[#f9fafb] focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
               ></textarea>
             </div>
           </div>

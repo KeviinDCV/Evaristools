@@ -286,7 +286,7 @@ const SummarizeDocument: React.FC = () => {
                       e.stopPropagation();
                       resetFile();
                     }}
-                    className="p-1 rounded bg-red-600 hover:bg-red-700"
+                    className="p-1 rounded-sm bg-red-600 hover:bg-red-700"
                     title="Eliminar"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -320,13 +320,13 @@ const SummarizeDocument: React.FC = () => {
                 <h3 className="font-medium text-gray-900 mb-2">Sobre esta herramienta</h3>
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-start">
-                    <svg className="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg className="shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                     <span className="ml-2"><strong>Formatos soportados:</strong> PDF, TXT, MD, HTML</span>
                   </li>
                   <li className="flex items-start">
-                    <svg className="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg className="shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                     <span className="ml-2"><strong>Tamaño máximo:</strong> 10MB</span>
@@ -370,7 +370,7 @@ const SummarizeDocument: React.FC = () => {
                 <div className="mt-8 flex flex-col sm:flex-row sm:justify-between gap-3">
                   <button
                     onClick={resetFile}
-                    className="flex items-center justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="flex items-center justify-center py-2 px-4 border border-gray-300 shadow-xs text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-hidden focus:ring-3 focus:ring-offset-2 focus:ring-blue-500"
                   >
                     <BsArrowLeft className="mr-2" />
                     Procesar otro documento
@@ -387,7 +387,7 @@ const SummarizeDocument: React.FC = () => {
                         element.click();
                         document.body.removeChild(element);
                       }}
-                      className="flex items-center justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      className="flex items-center justify-center py-2 px-4 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-hidden focus:ring-3 focus:ring-offset-2 focus:ring-blue-500"
                     >
                       <BsCloudDownload className="mr-2" />
                       Descargar resumen
@@ -395,7 +395,7 @@ const SummarizeDocument: React.FC = () => {
                     
                     <button
                       onClick={() => setChatActive(true)}
-                      className="flex items-center justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      className="flex items-center justify-center py-2 px-4 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-hidden focus:ring-3 focus:ring-offset-2 focus:ring-blue-500"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
@@ -410,7 +410,7 @@ const SummarizeDocument: React.FC = () => {
                 <div className="flex items-center justify-between mb-4">
                   <button
                     onClick={() => setChatActive(false)}
-                    className="flex items-center justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="flex items-center justify-center py-2 px-4 border border-gray-300 shadow-xs text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-hidden focus:ring-3 focus:ring-offset-2 focus:ring-blue-500"
                   >
                     <BsArrowLeft className="mr-1" />
                     Volver al resumen
@@ -419,7 +419,7 @@ const SummarizeDocument: React.FC = () => {
                 </div>
                 
                 {/* Área de chat */}
-                <div className="flex-grow border rounded-lg bg-gray-50 p-4 overflow-y-auto mb-4">
+                <div className="grow border rounded-lg bg-gray-50 p-4 overflow-y-auto mb-4">
                   <div className="space-y-4">
                     <div className="bg-blue-50 p-3 rounded-lg">
                       <p className="text-sm text-blue-700">
@@ -479,7 +479,7 @@ const SummarizeDocument: React.FC = () => {
                     onKeyPress={handleKeyPress}
                     placeholder="Escribe una pregunta sobre el documento..."
                     disabled={isChatLoading}
-                    className="flex-grow p-3 bg-transparent rounded-l-md focus:outline-none"
+                    className="grow p-3 bg-transparent rounded-l-md focus:outline-none"
                   />
                   <button
                     onClick={handleSendQuestion}

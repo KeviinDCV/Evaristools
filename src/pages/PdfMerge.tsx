@@ -315,12 +315,12 @@ const PdfMerge: React.FC = () => {
                         <div className="text-center mr-2 w-6">
                           <span className="text-sm font-medium text-gray-500">{index + 1}</span>
                         </div>
-                        <div className="flex-shrink-0 mr-3 text-gray-400">
+                        <div className="shrink-0 mr-3 text-gray-400">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" />
                           </svg>
                         </div>
-                        <svg className="w-5 h-5 mr-3 text-red-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg className="w-5 h-5 mr-3 text-red-600 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                           <polyline points="14 2 14 8 20 8"></polyline>
                           <path d="M9 15h6"></path>
@@ -339,7 +339,7 @@ const PdfMerge: React.FC = () => {
                         <button
                           onClick={() => moveFileUp(index)}
                           disabled={index === 0}
-                          className={`p-1 rounded bg-slate-700 hover:bg-slate-600 ${index === 0 ? 'opacity-50' : ''}`}
+                          className={`p-1 rounded-sm bg-slate-700 hover:bg-slate-600 ${index === 0 ? 'opacity-50' : ''}`}
                           title="Mover arriba"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -349,7 +349,7 @@ const PdfMerge: React.FC = () => {
                         <button
                           onClick={() => moveFileDown(index)}
                           disabled={index === pdfFiles.length - 1}
-                          className={`p-1 rounded bg-slate-700 hover:bg-slate-600 ${index === pdfFiles.length - 1 ? 'opacity-50' : ''}`}
+                          className={`p-1 rounded-sm bg-slate-700 hover:bg-slate-600 ${index === pdfFiles.length - 1 ? 'opacity-50' : ''}`}
                           title="Mover abajo"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -358,7 +358,7 @@ const PdfMerge: React.FC = () => {
                         </button>
                         <button 
                           onClick={() => handleRemoveFile(index)}
-                          className="p-1 rounded bg-red-600 hover:bg-red-700"
+                          className="p-1 rounded-sm bg-red-600 hover:bg-red-700"
                           title="Eliminar"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -373,18 +373,18 @@ const SortPdf: React.FC = () => {
                               type="checkbox"
                               checked={page.selected}
                               onChange={() => togglePageSelection(index)}
-                              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-3"
+                              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-sm mr-3"
                             />
                             <div className="text-center mr-2 w-6">
                               <span className="text-sm font-medium text-gray-500">{page.index}</span>
                             </div>
-                            <div className="flex-shrink-0 mr-3 text-gray-400">
+                            <div className="shrink-0 mr-3 text-gray-400">
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" />
                               </svg>
                             </div>
                             {thumbnails && thumbnails[page.index - 1] && (
-                              <div className="w-10 h-14 bg-gray-100 rounded overflow-hidden mr-3">
+                              <div className="w-10 h-14 bg-gray-100 rounded-sm overflow-hidden mr-3">
                                 <img 
                                   src={thumbnails[page.index - 1]} 
                                   alt={`Miniatura página ${page.index}`} 
@@ -400,7 +400,7 @@ const SortPdf: React.FC = () => {
                             <button
                               onClick={() => movePageUp(index)}
                               disabled={index === 0}
-                              className={`p-1 rounded bg-slate-700 hover:bg-slate-600 ${index === 0 ? 'opacity-50' : ''}`}
+                              className={`p-1 rounded-sm bg-slate-700 hover:bg-slate-600 ${index === 0 ? 'opacity-50' : ''}`}
                               title="Mover arriba"
                             >
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -410,7 +410,7 @@ const SortPdf: React.FC = () => {
                             <button
                               onClick={() => movePageDown(index)}
                               disabled={index === pages.length - 1}
-                              className={`p-1 rounded bg-slate-700 hover:bg-slate-600 ${index === pages.length - 1 ? 'opacity-50' : ''}`}
+                              className={`p-1 rounded-sm bg-slate-700 hover:bg-slate-600 ${index === pages.length - 1 ? 'opacity-50' : ''}`}
                               title="Mover abajo"
                             >
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

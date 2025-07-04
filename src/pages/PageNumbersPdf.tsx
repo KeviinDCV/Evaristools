@@ -189,7 +189,7 @@ const PageNumbersPdf: React.FC = () => {
                   <select
                     value={position}
                     onChange={(e) => setPosition(e.target.value)}
-                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="bottom-center">Inferior centro</option>
                     <option value="bottom-right">Inferior derecha</option>
@@ -207,7 +207,7 @@ const PageNumbersPdf: React.FC = () => {
                   <select
                     value={format}
                     onChange={(e) => setFormat(e.target.value)}
-                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="1, 2, 3">1, 2, 3, ...</option>
                     <option value="Página 1, Página 2">Página 1, Página 2, ...</option>
@@ -216,7 +216,7 @@ const PageNumbersPdf: React.FC = () => {
                     <option value="I, II, III">I, II, III, ... (romanos mayúsculas)</option>
                   </select>
                   
-                  <div className="mt-2 p-2 bg-gray-50 border border-gray-200 rounded text-sm">
+                  <div className="mt-2 p-2 bg-gray-50 border border-gray-200 rounded-sm text-sm">
                     Vista previa: <span className="font-medium">{renderFormatPreview()}</span>
                   </div>
                 </div>
@@ -230,7 +230,7 @@ const PageNumbersPdf: React.FC = () => {
                     min="1"
                     value={startingNumber}
                     onChange={(e) => setStartingNumber(parseInt(e.target.value) || 1)}
-                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
                 
@@ -275,7 +275,7 @@ const PageNumbersPdf: React.FC = () => {
                   <select
                     value={fontFamily}
                     onChange={(e) => setFontFamily(e.target.value)}
-                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="Arial">Arial</option>
                     <option value="Times New Roman">Times New Roman</option>
@@ -297,7 +297,7 @@ const PageNumbersPdf: React.FC = () => {
                       type="checkbox"
                       checked={excludeFirstPage}
                       onChange={(e) => setExcludeFirstPage(e.target.checked)}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-sm"
                     />
                     <label htmlFor="exclude-first" className="ml-2 text-sm text-[#374151]">
                       No numerar la primera página

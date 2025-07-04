@@ -266,7 +266,7 @@ const JpgToPdf: React.FC = () => {
                         <img 
                           src={img.url} 
                           alt={img.file.name}
-                          className="h-16 w-16 object-cover rounded"
+                          className="h-16 w-16 object-cover rounded-sm"
                         />
                         <div className="text-sm truncate max-w-xs">
                           <div className="font-medium text-[#111827]">{img.file.name}</div>
@@ -279,7 +279,7 @@ const JpgToPdf: React.FC = () => {
                         <button 
                           onClick={() => handleMoveUp(index)}
                           disabled={index === 0}
-                          className={`p-1 rounded bg-slate-700 hover:bg-slate-600 ${index === 0 ? 'opacity-50' : ''}`}
+                          className={`p-1 rounded-sm bg-slate-700 hover:bg-slate-600 ${index === 0 ? 'opacity-50' : ''}`}
                           title="Mover arriba"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -289,7 +289,7 @@ const JpgToPdf: React.FC = () => {
                         <button 
                           onClick={() => handleMoveDown(index)}
                           disabled={index === images.length - 1}
-                          className={`p-1 rounded bg-slate-700 hover:bg-slate-600 ${index === images.length - 1 ? 'opacity-50' : ''}`}
+                          className={`p-1 rounded-sm bg-slate-700 hover:bg-slate-600 ${index === images.length - 1 ? 'opacity-50' : ''}`}
                           title="Mover abajo"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -298,7 +298,7 @@ const JpgToPdf: React.FC = () => {
                         </button>
                         <button 
                           onClick={() => handleRemoveImage(index)}
-                          className="p-1 rounded bg-red-600 hover:bg-red-700"
+                          className="p-1 rounded-sm bg-red-600 hover:bg-red-700"
                           title="Eliminar"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -321,7 +321,7 @@ const JpgToPdf: React.FC = () => {
                     type="text"
                     value={documentTitle}
                     onChange={(e) => setDocumentTitle(e.target.value)}
-                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
                 
@@ -333,7 +333,7 @@ const JpgToPdf: React.FC = () => {
                     id="page-size"
                     value={pageSize}
                     onChange={(e) => setPageSize(e.target.value)}
-                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="a4">A4 (210 x 297 mm)</option>
                     <option value="letter">Carta (8.5 x 11 pulgadas)</option>

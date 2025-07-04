@@ -263,7 +263,7 @@ const PdfCompress: React.FC = () => {
                   id="compression-level"
                   value={compressionLevel}
                   onChange={(e) => setCompressionLevel(e.target.value)}
-                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="low">Baja (mejor calidad)</option>
                   <option value="medium">Media (equilibrado)</option>

@@ -208,7 +208,7 @@ const PdfToPdfA: React.FC = () => {
                   id="conformance-level"
                   value={conformanceLevel}
                   onChange={(e) => setConformanceLevel(e.target.value)}
-                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="pdfa-1b">PDF/A-1b (nivel básico, ISO 19005-1)</option>
                   <option value="pdfa-2b">PDF/A-2b (nivel básico, ISO 19005-2, recomendado)</option>
