@@ -3,7 +3,6 @@ import { AnimatePresence } from 'framer-motion';
 import MainLayout from './components/MainLayout';
 import Home from './pages/Home';
 import OcrTool from './pages/OcrTool';
-import PdfTools from './pages/PdfTools';
 import ImageToWord from './pages/ImageToWord';
 import PdfMerge from './pages/PdfMerge';
 import PdfSplit from './pages/PdfSplit';
@@ -20,11 +19,12 @@ import SignPdf from './pages/SignPdf';
 import WatermarkPdf from './pages/WatermarkPdf';
 import RotatePdf from './pages/RotatePdf';
 import SortPdf from './pages/SortPdf';
+import CropPdf from './pages/CropPdf';
 import UnlockPdf from './pages/UnlockPdf';
 import ProtectPdf from './pages/ProtectPdf';
 import PageNumbersPdf from './pages/PageNumbersPdf';
 import SummarizeDocument from './pages/SummarizeDocument';
-import QrGenerator from './pages/QrGenerator';
+import QrGenerator from './pages/QRGenerator';
 
 function App() {
   const location = useLocation();
@@ -35,7 +35,6 @@ function App() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/ocr" element={<OcrTool />} />
-          <Route path="/pdf-tools" element={<PdfTools />} />
           <Route path="/pdf/merge" element={<PdfMerge />} />
           <Route path="/pdf/split" element={<PdfSplit />} />
           <Route path="/pdf/compress" element={<PdfCompress />} />
@@ -51,6 +50,7 @@ function App() {
           <Route path="/pdf/watermark" element={<WatermarkPdf />} />
           <Route path="/pdf/rotate" element={<RotatePdf />} />
           <Route path="/pdf/sort" element={<SortPdf />} />
+          <Route path="/pdf/crop" element={<CropPdf />} />
           <Route path="/pdf/unlock" element={<UnlockPdf />} />
           <Route path="/pdf/protect" element={<ProtectPdf />} />
           <Route path="/pdf/page-numbers" element={<PageNumbersPdf />} />

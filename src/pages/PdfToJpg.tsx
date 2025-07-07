@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+// import { FaFileAlt, FaHome, FaChevronRight, FaImage, FaDownload, FaCog, FaEye } from 'react-icons/fa';
 import config from '../config';
 import { saveAs } from 'file-saver';
 import { PDFDocument } from 'pdf-lib';
@@ -22,7 +24,8 @@ const PdfToJpg: React.FC = () => {
   const [numPages, setNumPages] = useState<number>(0);
   const [thumbnails, setThumbnails] = useState<PdfThumbnail[]>([]);
   const [selectedPages, setSelectedPages] = useState<number[]>([]);
-  
+  const [dragActive, setDragActive] = useState<boolean>(false);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   
   // Cargar PDF y generar miniaturas cuando se selecciona un archivo
@@ -150,22 +153,58 @@ const PdfToJpg: React.FC = () => {
     throw new Error('No se pudo obtener el contexto del canvas');
   };
 
+  // Handlers para drag & drop
+  const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setDragActive(true);
+    } else if (e.type === 'dragleave') {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const selectedFile = e.dataTransfer.files[0];
+      handleFileValidation(selectedFile);
+    }
+  };
+
   // Función para manejar la selección de archivo
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-      if (file.type !== 'application/pdf') {
-        setError('Solo se permiten archivos PDF');
-        setSelectedFile(null);
-        setNumPages(0);
-        setSelectedPages([]);
-        setThumbnails([]);
-      } else {
-        setSelectedFile(file);
-        setError(null);
-        setSelectedPages([]);
-      }
+      handleFileValidation(file);
     }
+  };
+
+  const handleFileValidation = (file: File) => {
+    // Resetear estados
+    setError(null);
+    setSuccess(null);
+    setSelectedPages([]);
+    setThumbnails([]);
+    setNumPages(0);
+
+    if (file.type !== 'application/pdf') {
+      setError('Solo se permiten archivos PDF');
+      setSelectedFile(null);
+      return;
+    }
+
+    // Validar tamaño (max 50MB)
+    if (file.size > 50 * 1024 * 1024) {
+      setError('El archivo no puede superar los 50MB');
+      setSelectedFile(null);
+      return;
+    }
+
+    setSelectedFile(file);
   };
 
   // Función para manejar la selección de páginas
@@ -296,120 +335,182 @@ const PdfToJpg: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col max-w-[960px] mx-auto">
-      <div className="flex flex-col space-y-2 mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">PDF a JPG</h1>
-        <p className="text-[#5c728a] text-sm">
+    <div className="flex flex-col max-w-7xl mx-auto space-y-6">
+      {/* Back Button */}
+      <div className="flex items-center">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors rounded-lg hover:bg-muted/50"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Volver a herramientas
+        </Link>
+      </div>
+
+      {/* Header Section */}
+      <div className="space-y-3">
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground">PDF a JPG</h1>
+        <p className="text-muted-foreground text-sm md:text-base max-w-2xl">
           Convierte páginas de documentos PDF a imágenes JPG de alta calidad. Ideal para extraer imágenes o crear versiones visuales de tus documentos.
         </p>
       </div>
 
+      {/* Alert Messages */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-6">
-          {error}
+        <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-lg">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+            </svg>
+            <span className="text-sm font-medium">{error}</span>
+          </div>
         </div>
       )}
 
       {success && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md mb-6">
-          {success}
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span className="text-sm font-medium">{success}</span>
+          </div>
         </div>
       )}
 
-      <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
-        <div className="px-6 py-5 border-b border-[#e5e7eb]">
-          <h3 className="font-medium text-[#101418]">Seleccionar archivo PDF para convertir a JPG</h3>
-        </div>
-        <div className="p-6 flex flex-col space-y-4">
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className="relative w-full bg-[#f9fafb] border border-dashed border-[#d1d5db] rounded-lg py-12 flex flex-col items-center justify-center cursor-pointer hover:bg-[#f3f4f6] transition-colors"
-          >
-            <svg className="w-10 h-10 text-[#9ca3af]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+      {/* Upload Section */}
+      <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm">
+        <div className="px-6 py-4 border-b border-border bg-muted/30">
+          <h3 className="font-semibold text-card-foreground flex items-center gap-2">
+            <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-            <span className="mt-2 text-sm font-medium text-[#6b7280]">
-              Haz clic para seleccionar un archivo PDF
-            </span>
-            <span className="mt-1 text-xs text-[#9ca3af]">
-              Selecciona un archivo PDF para convertir sus páginas a imágenes JPG
-            </span>
-          </button>
-          <input
-            type="file"
-            accept="application/pdf"
-            onChange={handleFileChange}
-            className="hidden"
-            ref={fileInputRef}
-          />
+            Seleccionar archivo PDF para convertir a JPG
+          </h3>
+        </div>
+        <div className="p-6 space-y-6">
+          {/* Drop zone */}
+          <div
+            className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-200 ${
+              dragActive
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary/50 hover:bg-muted/30'
+            } ${error ? 'border-destructive' : ''}`}
+            onDragEnter={handleDrag}
+            onDragLeave={handleDrag}
+            onDragOver={handleDrag}
+            onDrop={handleDrop}
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <input
+              ref={fileInputRef}
+              type="file"
+              id="file-upload"
+              className="hidden"
+              onChange={handleFileChange}
+              accept="application/pdf"
+            />
 
-          {selectedFile && (
-            <div className="mt-4 space-y-4">
-              <div className="pt-2">
-                <h4 className="text-sm font-medium text-[#374151] mb-2">
-                  Archivo seleccionado:
-                </h4>
-                <div className="border border-[#e5e7eb] rounded-lg p-3 flex items-center">
-                  <svg className="w-6 h-6 mr-3 text-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <path d="M9 15h6"></path>
-                    <path d="M9 11h6"></path>
+            {!selectedFile ? (
+              <>
+                <div className="text-muted-foreground mb-4">
+                  <svg className="mx-auto h-16 w-16 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  <div>
-                    <div className="text-sm font-medium text-[#111827]">
-                      {selectedFile.name}
-                    </div>
-                    <div className="text-xs text-[#6b7280]">
-                      {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
-                    </div>
-                  </div>
+                </div>
+                <div className="text-center">
+                  <p className="text-foreground mb-2">
+                    <span className="font-medium">Haz clic para seleccionar</span> o arrastra y suelta tu archivo PDF
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    PDF (máximo 50MB)
+                  </p>
+                </div>
+              </>
+            ) : (
+              <div className="flex items-center justify-center space-x-3">
+                <div className="flex items-center gap-3 bg-background border border-border rounded-lg p-3">
+                  <svg className="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span className="text-foreground text-sm font-medium truncate max-w-[250px]">
+                    {selectedFile.name}
+                  </span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedFile(null);
+                      setThumbnails([]);
+                      setSelectedPages([]);
+                      setNumPages(0);
+                      setError(null);
+                      setSuccess(null);
+                    }}
+                    className="text-destructive hover:text-destructive/80 transition-colors p-1"
+                    title="Eliminar archivo"
+                  >
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
                 </div>
               </div>
+            )}
+          </div>
 
+          {/* Content when file is selected */}
+          {selectedFile && (
+            <div className="space-y-6">
               {isLoading ? (
-                <div className="flex items-center justify-center py-10">
-                  <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#1d4ed8]"></div>
-                  <span className="ml-3 text-sm text-[#374151]">Cargando miniaturas...</span>
+                <div className="space-y-3 p-4 bg-muted/30 rounded-lg border border-border">
+                  <div className="flex items-center justify-center gap-2">
+                    <svg className="w-4 h-4 animate-spin text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    <span className="text-sm font-medium text-foreground">Cargando miniaturas del PDF...</span>
+                  </div>
                 </div>
               ) : (
                 <>
+                  {/* Page Selection */}
                   {thumbnails.length > 0 && (
-                    <div className="pt-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <h4 className="text-sm font-medium text-[#374151]">
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <h4 className="text-sm font-medium text-foreground">
                           Selecciona las páginas a convertir:
                         </h4>
-                        <div className="flex space-x-2">
-                          <button 
+                        <div className="flex gap-2">
+                          <button
                             onClick={selectAllPages}
-                            className="text-xs py-1 px-2 bg-gray-100 hover:bg-gray-200 rounded-sm text-gray-700"
+                            className="text-xs py-1 px-2 bg-muted hover:bg-muted/80 rounded-md text-foreground transition-colors"
                           >
                             Seleccionar todas
                           </button>
-                          <button 
+                          <button
                             onClick={deselectAllPages}
-                            className="text-xs py-1 px-2 bg-gray-100 hover:bg-gray-200 rounded-sm text-gray-700"
+                            className="text-xs py-1 px-2 bg-muted hover:bg-muted/80 rounded-md text-foreground transition-colors"
                           >
                             Deseleccionar todas
                           </button>
                         </div>
                       </div>
-                      
-                      <div className="border border-[#e5e7eb] rounded-lg p-4 bg-gray-50">
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-h-96 overflow-y-auto p-2">
+
+                      <div className="border border-border rounded-lg p-4 bg-muted/30">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-h-96 overflow-y-auto">
                           {thumbnails.map((thumb) => (
-                            <div 
+                            <div
                               key={`page_${thumb.pageNumber}`}
                               onClick={() => togglePageSelection(thumb.pageNumber)}
                               className={`relative cursor-pointer rounded-md overflow-hidden transition-all ${
-                                selectedPages.includes(thumb.pageNumber) 
-                                  ? 'ring-2 ring-[#1d4ed8] ring-offset-1' 
-                                  : 'hover:opacity-80 border border-gray-200'
+                                selectedPages.includes(thumb.pageNumber)
+                                  ? 'ring-2 ring-primary ring-offset-1'
+                                  : 'hover:opacity-80 border border-border'
                               }`}
                             >
-                              <img 
-                                src={thumb.dataUrl} 
+                              <img
+                                src={thumb.dataUrl}
                                 alt={`Página ${thumb.pageNumber}`}
                                 className="w-full h-auto object-contain bg-white"
                               />
@@ -417,7 +518,7 @@ const PdfToJpg: React.FC = () => {
                                 Página {thumb.pageNumber}
                               </div>
                               {selectedPages.includes(thumb.pageNumber) && (
-                                <div className="absolute top-2 right-2 bg-[#1d4ed8] rounded-full p-1 w-5 h-5 flex items-center justify-center text-white">
+                                <div className="absolute top-2 right-2 bg-primary rounded-full p-1 w-5 h-5 flex items-center justify-center text-primary-foreground">
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
                                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                   </svg>
@@ -427,103 +528,169 @@ const PdfToJpg: React.FC = () => {
                           ))}
                         </div>
                       </div>
-                      <p className="mt-1 text-xs text-[#6b7280]">
+                      <p className="text-xs text-muted-foreground">
                         Haz clic en las páginas para seleccionarlas. Solo se convertirán las páginas seleccionadas.
                       </p>
                     </div>
                   )}
 
-                  <div className="pt-4">
-                    <label htmlFor="page-ranges" className="block text-sm font-medium text-[#374151] mb-2">
-                      Rangos de páginas:
-                  </label>
+                  {/* Configuration Controls */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label htmlFor="page-ranges" className="block text-sm font-medium text-foreground">
+                        Rangos de páginas:
+                      </label>
                       <input
-                      id="page-ranges"
+                        id="page-ranges"
                         type="text"
-                      value={customRange}
-                      onChange={(e) => handleRangeInput(e.target.value)}
-                      placeholder="Ejemplo: 1-3,5,7-9"
-                        className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
+                        value={customRange}
+                        onChange={(e) => handleRangeInput(e.target.value)}
+                        placeholder="Ejemplo: 1-3,5,7-9"
+                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       />
-                      <p className="mt-1 text-xs text-[#6b7280]">
+                      <p className="text-xs text-muted-foreground">
                         Introduce los rangos de páginas separados por comas. Por ejemplo: 1-3,5,7-9
                       </p>
-                </div>
-
-                <div>
-                  <label htmlFor="image-quality" className="block text-sm font-medium text-[#374151] mb-1">
-                    Calidad de imagen:
-                  </label>
-                  <select
-                    id="image-quality"
-                    value={imageQuality}
-                    onChange={(e) => setImageQuality(e.target.value)}
-                    className="w-full rounded-md border border-[#e5e7eb] py-2 px-3 text-sm focus:outline-hidden focus:ring-3 focus:ring-blue-500 focus:border-blue-500"
-                  >
-                    <option value="low">Baja (menor tamaño)</option>
-                    <option value="medium">Media (recomendado)</option>
-                    <option value="high">Alta (mejor calidad)</option>
-                  </select>
-                </div>
-
-                <button
-                  onClick={convertPdfToJpg}
-                    disabled={isProcessing || selectedPages.length === 0}
-                    className={`w-full py-2 px-4 rounded-md font-medium ${
-                      isProcessing || selectedPages.length === 0
-                        ? 'bg-[#e5e7eb] text-[#9ca3af] cursor-not-allowed' 
-                        : 'bg-[#1d4ed8] text-white hover:bg-[#1e40af] transition-colors'
-                    }`}
-                >
-                  {isProcessing ? (
-                    <div className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Procesando...
                     </div>
-                  ) : 'Convertir a JPG'}
-                </button>
-                <p className="text-xs text-[#6b7280] mt-2 text-center">
-                    Nota: Se generará un archivo ZIP con imágenes JPG (una por cada página seleccionada).
-                </p>
+
+                    <div className="space-y-2">
+                      <label htmlFor="image-quality" className="block text-sm font-medium text-foreground">
+                        Calidad de imagen:
+                      </label>
+                      <select
+                        id="image-quality"
+                        value={imageQuality}
+                        onChange={(e) => setImageQuality(e.target.value)}
+                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        <option value="low">Baja (menor tamaño)</option>
+                        <option value="medium">Media (recomendado)</option>
+                        <option value="high">Alta (mejor calidad)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Convert Button */}
+                  <div className="space-y-4">
+                    {isProcessing ? (
+                      <div className="space-y-3 p-4 bg-muted/30 rounded-lg border border-border">
+                        <div className="flex items-center justify-center gap-2">
+                          <svg className="w-4 h-4 animate-spin text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                          </svg>
+                          <span className="text-sm font-medium text-foreground">Convirtiendo PDF a JPG...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={convertPdfToJpg}
+                        disabled={selectedPages.length === 0}
+                        className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
+                          selectedPages.length === 0
+                            ? 'bg-muted text-muted-foreground cursor-not-allowed'
+                            : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md'
+                        }`}
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        Convertir a JPG
+                      </button>
+                    )}
+
+                    <p className="text-xs text-muted-foreground text-center">
+                      Nota: Se generará un archivo ZIP con imágenes JPG (una por cada página seleccionada).
+                    </p>
+                  </div>
                 </>
               )}
             </div>
           )}
         </div>
       </div>
-      
-      {/* Explicación del funcionamiento */}
-      <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden mt-6">
-        <div className="px-6 py-5 border-b border-[#e5e7eb]">
-          <h3 className="font-medium text-[#101418]">¿Cómo funciona la conversión de PDF a JPG?</h3>
+
+      {/* Information Section */}
+      <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm">
+        <div className="px-6 py-4 border-b border-border bg-muted/30">
+          <h3 className="font-semibold text-card-foreground flex items-center gap-2">
+            <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            ¿Cómo funciona la conversión de PDF a JPG?
+          </h3>
         </div>
-        <div className="p-6 space-y-4 text-[#374151]">
-          <p className="text-sm">
-            La conversión de documentos PDF a imágenes JPG es un proceso que permite transformar cada página
-            de un PDF en una imagen independiente. El proceso funciona así:
+        <div className="p-6 space-y-6">
+          <p className="text-sm text-muted-foreground">
+            La conversión de PDF a imágenes JPG es un proceso que permite extraer páginas de documentos PDF como archivos
+            de imagen independientes. El proceso funciona así:
           </p>
-          
-          <ol className="list-decimal pl-5 space-y-2 text-sm">
-            <li>
-              <span className="font-medium">Renderización de páginas:</span> Cada página del PDF se renderiza 
-              como un gráfico de alta calidad, preservando todos los elementos visuales del documento.
-            </li>
-            <li>
-              <span className="font-medium">Ajuste de resolución:</span> Se aplica la resolución seleccionada
-              (relacionada con la calidad de imagen) para determinar la densidad de píxeles de la imagen resultante.
-            </li>
-            <li>
-              <span className="font-medium">Conversión a formato JPG:</span> La imagen renderizada se convierte
-              al formato JPG, aplicando el nivel de compresión correspondiente a la calidad seleccionada.
-            </li>
-            <li>
-              <span className="font-medium">Generación de archivos:</span> Se genera un archivo JPG separado para
-              cada página del PDF original, permitiendo usar estas imágenes en aplicaciones, sitios web o redes sociales.
-            </li>
-          </ol>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">1</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">Análisis del PDF</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    El documento PDF se analiza para determinar el número de páginas y sus características.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">2</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">Selección de páginas</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Puedes elegir páginas específicas o convertir todo el documento según tus necesidades.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">3</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">Renderizado a imagen</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Cada página seleccionada se renderiza como una imagen JPG con la calidad especificada.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-bold text-sm">4</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">Empaquetado final</h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Las imágenes se comprimen en un archivo ZIP para facilitar la descarga.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <div className="flex items-start gap-3">
+              <svg className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              </svg>
+              <div>
+                <h4 className="font-medium text-red-800 text-sm">Nota importante</h4>
+                <p className="text-sm text-red-700 mt-1">
+                  La calidad de las imágenes resultantes depende de la resolución original del PDF. Para mejores resultados, usa la configuración de calidad "Alta".
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

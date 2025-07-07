@@ -91,7 +91,7 @@ export const useScrollSmoother = (options: UseScrollSmootherOptions = {}) => {
 
   const paused = (value?: boolean) => {
     if (scrollSmootherRef.current) {
-      return scrollSmootherRef.current.paused(value);
+      return scrollSmootherRef.current.paused(value ?? false);
     }
     return false;
   };
