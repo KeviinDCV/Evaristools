@@ -196,7 +196,7 @@ export default function WordToPDF() {
                 <meta name="csrf-token" content={document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''} />
             </Head>
 
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="Word a PDF"
                     description="Convierte documentos Word a PDF manteniendo todos los estilos, imágenes y formato original"
@@ -243,7 +243,7 @@ export default function WordToPDF() {
                                         title="Documento Seleccionado"
                                         description="Información del archivo Word"
                                     >
-                                        <div className="bg-slate-50 dark:bg-slate-800 rounded-lg p-4">
+                                        <div className="bg-slate-50 dark:bg-[#222322] rounded-lg p-4">
                                             <div className="flex items-center space-x-3">
                                                 <FileText className="h-8 w-8 text-blue-600" />
                                                 <div className="flex-1">

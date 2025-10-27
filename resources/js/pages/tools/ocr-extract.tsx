@@ -281,7 +281,7 @@ export default function OCRExtract() {
                 <meta name="description" content="Extrae texto de imágenes y documentos PDF escaneados - Hospital Universitario del Valle" />
             </Head>
 
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="OCR y Extracción de Texto"
                     description="Convierte imágenes en texto editable mediante OCR"
@@ -331,7 +331,7 @@ export default function OCRExtract() {
                                     >
                                             <div className="border rounded-lg overflow-hidden">
                                                 {file?.type === 'application/pdf' ? (
-                                                    <div className="p-8 text-center bg-slate-50 dark:bg-slate-800">
+                                                    <div className="p-8 text-center bg-slate-50 dark:bg-[#222322]">
                                                         <StickyNote className="h-16 w-16 mx-auto text-slate-400 mb-4" />
                                                         <p className="text-slate-600 dark:text-slate-300">
                                                             Archivo PDF listo para procesar

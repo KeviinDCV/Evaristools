@@ -220,7 +220,7 @@ export default function PDFToImages() {
                 <meta name="description" content="Convierte páginas de PDF a imágenes JPG o PNG - Hospital Universitario del Valle" />
             </Head>
 
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="PDF a Imágenes"
                     description="Convierte cada página de tu PDF en imágenes individuales"

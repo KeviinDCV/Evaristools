@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 interface ToolCategory {
     id: string;
@@ -317,26 +318,31 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                 <meta name="description" content="Hospital Universitario del Valle 'Evaristo Garcia' E.S.E - Herramientas completas de digitalización, OCR y procesamiento de documentos." />
             </Head>
             
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 {/* Header */}
-                <header className="border-b border-white/20 bg-white/80 backdrop-blur-md dark:bg-slate-900/80">
-                    <div className="container mx-auto px-4 py-6">
-                        <div className="flex flex-col items-center space-y-4">
-                            <div className="flex items-center space-x-3">
-                                <div className="flex h-12 w-12 items-center justify-center">
+                <header className="border-b border-gray-200 dark:border-[#3f3f40] bg-white dark:bg-[#222322]">
+                    <div className="container mx-auto px-4 py-4">
+                        <div className="relative flex items-center justify-center mb-4">
+                            <div className="flex items-center gap-2">
+                                <div className="flex h-10 w-10 items-center justify-center">
                                     <img 
                                         src="/images/logo.png" 
                                         alt="Hospital Universitario del Valle Logo" 
-                                        className="h-12 w-12 object-contain"
+                                        className="h-10 w-10 object-contain"
                                     />
                                 </div>
-                                <div className="text-center">
-                                    <h1 className="text-2xl font-bold text-institutional">Evaristools</h1>
-                                    <p className="text-sm text-muted-foreground">Hospital Universitario del Valle "Evaristo Garcia" E.S.E</p>
+                                <div>
+                                    <h1 className="text-xl font-bold text-institutional dark:text-[#6b7bb8]">Evaristools</h1>
+                                    <p className="text-xs text-muted-foreground dark:text-slate-400 whitespace-nowrap">Hospital Universitario del Valle "Evaristo Garcia" E.S.E</p>
                                 </div>
                             </div>
-                            
-                            {/* Search Bar */}
+                            <div className="absolute right-0 top-1/2 -translate-y-1/2">
+                                <ThemeToggle />
+                            </div>
+                        </div>
+                        
+                        {/* Search Bar */}
+                        <div className="flex justify-center">
                             <div className="w-full max-w-md">
                                 <div className="relative">
                                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -344,7 +350,7 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                                         placeholder="Buscar herramientas..."
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="pl-10 glass-card border-white/30 bg-white/50 backdrop-blur-sm"
+                                        className="pl-10 border-gray-200 dark:border-[#3f3f40] bg-white dark:bg-[#2f2f30] dark:text-white"
                                     />
                                 </div>
                                 {searchTerm && (
@@ -387,7 +393,7 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                                         return (
                                             <Card
                                                 key={tool.id}
-                                                className="group glass-card border-white/30 bg-white/60 hover-lift hover:bg-white/80 dark:bg-slate-800/60 dark:hover:bg-slate-800/80"
+                                                className="group border-gray-200 dark:border-[#3f3f40] bg-white dark:bg-[#222322] hover-lift hover:bg-gray-50 dark:hover:bg-[#2f2f30] transition-colors"
                                             >
                                                 <CardHeader className="pb-3">
                                                     <div className="flex items-start justify-between">
@@ -463,7 +469,7 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                                         return (
                                             <Card
                                                 key={tool.id}
-                                                className="group glass-card border-white/30 bg-white/60 hover-lift hover:bg-white/80 dark:bg-slate-800/60 dark:hover:bg-slate-800/80"
+                                                className="group border-gray-200 dark:border-[#3f3f40] bg-white dark:bg-[#222322] hover-lift hover:bg-gray-50 dark:hover:bg-[#2f2f30] transition-colors"
                                             >
                                                 <CardHeader className="pb-3">
                                                     <div className="flex items-start justify-between">

@@ -51,7 +51,13 @@ export function initializeTheme() {
 }
 
 export function useAppearance() {
-    const [appearance, setAppearance] = useState<Appearance>('system');
+    const [appearance, setAppearance] = useState<Appearance>(() => {
+        // Initialize with the saved value or 'system'
+        if (typeof window !== 'undefined') {
+            return (localStorage.getItem('appearance') as Appearance) || 'system';
+        }
+        return 'system';
+    });
 
     const updateAppearance = useCallback((mode: Appearance) => {
         setAppearance(mode);
@@ -66,17 +72,22 @@ export function useAppearance() {
     }, []);
 
     useEffect(() => {
-        const savedAppearance = localStorage.getItem(
-            'appearance',
-        ) as Appearance | null;
-        updateAppearance(savedAppearance || 'system');
+        // Apply the theme on mount
+        applyTheme(appearance);
 
-        return () =>
-            mediaQuery()?.removeEventListener(
-                'change',
-                handleSystemThemeChange,
-            );
-    }, [updateAppearance]);
+        // Add listener for system theme changes
+        const listener = () => {
+            if (appearance === 'system') {
+                applyTheme('system');
+            }
+        };
+
+        mediaQuery()?.addEventListener('change', listener);
+
+        return () => {
+            mediaQuery()?.removeEventListener('change', listener);
+        };
+    }, [appearance]);
 
     return { appearance, updateAppearance } as const;
 }

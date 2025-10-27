@@ -311,7 +311,7 @@ export default function QRGenerator() {
                 <meta name="description" content="Genera códigos QR personalizados con logo institucional del Hospital Universitario del Valle" />
             </Head>
 
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="Generador de QR"
                     description="Crea códigos QR personalizados con logo institucional"

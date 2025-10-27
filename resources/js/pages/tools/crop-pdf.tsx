@@ -193,7 +193,7 @@ export default function CropPDF() {
         <>
             <Head title="Recortar PDF - Evaristools" />
             
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="Recortar PDF"
                     description="Elimina los márgenes de tus documentos PDF ajustando los bordes"
@@ -227,7 +227,7 @@ export default function CropPDF() {
                                 {/* File Info */}
                                 {pdfFile && !isCropped && (
                                     <ToolCard title="Archivo Seleccionado">
-                                        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                                        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#222322] rounded-lg">
                                             <div className="flex items-center space-x-3">
                                                 <FileText className="h-8 w-8 text-institutional" />
                                                 <div>

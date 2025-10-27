@@ -383,7 +383,7 @@ export default function ImagesToWord() {
                 <meta name="description" content="Convierte imágenes con texto en documentos Word editables - Hospital Universitario del Valle" />
             </Head>
 
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="Imágenes a Word"
                     description="Convierte imágenes con texto en documentos Word editables"
@@ -431,7 +431,7 @@ export default function ImagesToWord() {
                                                         id="fontSize"
                                                         value={documentOptions.fontSize}
                                                         onChange={(e) => setDocumentOptions(prev => ({ ...prev, fontSize: parseInt(e.target.value) }))}
-                                                        className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
+                                                        className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-[#222322] text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
                                                     >
                                                         <option value="10">10pt</option>
                                                         <option value="11">11pt</option>
@@ -446,7 +446,7 @@ export default function ImagesToWord() {
                                                         id="fontFamily"
                                                         value={documentOptions.fontFamily}
                                                         onChange={(e) => setDocumentOptions(prev => ({ ...prev, fontFamily: e.target.value }))}
-                                                        className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
+                                                        className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-[#222322] text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
                                                     >
                                                         <option value="Arial">Arial</option>
                                                         <option value="Times New Roman">Times New Roman</option>

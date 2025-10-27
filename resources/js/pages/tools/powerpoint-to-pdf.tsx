@@ -154,7 +154,7 @@ export default function PowerPointToPDF() {
         <>
             <Head title="PowerPoint a PDF - Evaristools" />
             
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="PowerPoint a PDF"
                     description="Convierte presentaciones PowerPoint a formato PDF"
@@ -197,7 +197,7 @@ export default function PowerPointToPDF() {
 
                                 {pptFile && (
                                     <ToolCard title="Archivo Seleccionado">
-                                        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                                        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#222322] rounded-lg">
                                             <div className="flex items-center space-x-3">
                                                 <FileText className="h-8 w-8 text-institutional" />
                                                 <div>

@@ -243,7 +243,7 @@ export default function PDFCompress() {
                 <meta name="description" content="Comprime archivos PDF reduciendo su tamaño sin perder calidad - Hospital Universitario del Valle" />
             </Head>
 
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="Compresor de PDF"
                     description="Reduce el tamaño de tus archivos PDF sin perder calidad"

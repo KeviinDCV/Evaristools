@@ -319,9 +319,9 @@ export default function MergePDFs() {
                 <meta name="description" content="Une múltiples archivos PDF en un solo documento - Hospital Universitario del Valle" />
             </Head>
 
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 {/* Header */}
-                <div className="bg-white/80 backdrop-blur-sm border-b border-white/20 dark:bg-slate-800/80 dark:border-slate-700/20">
+                <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 dark:bg-[#222322] dark:border-[#3f3f40]">
                     <div className="container mx-auto px-4 py-6">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-4">
@@ -426,7 +426,7 @@ export default function MergePDFs() {
 
                                         {/* Summary */}
                                         {files.length > 0 && (
-                                            <div className="bg-slate-50 dark:bg-slate-800 rounded-lg p-4">
+                                            <div className="bg-slate-50 dark:bg-[#222322] rounded-lg p-4">
                                                 <div className="grid grid-cols-3 gap-4 text-center">
                                                     <div>
                                                         <p className="text-sm text-slate-600 dark:text-slate-300">Archivos</p>

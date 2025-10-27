@@ -176,7 +176,7 @@ export default function ResumeDocument() {
         <>
             <Head title="Resumir Documento - Evaristools" />
             
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="Resumir Documento"
                     description="Genera resúmenes automáticos de documentos usando IA"
@@ -220,7 +220,7 @@ export default function ResumeDocument() {
 
                                 {file && (
                                     <ToolCard title="Archivo Seleccionado">
-                                        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                                        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#222322] rounded-lg">
                                             <div className="flex items-center space-x-3">
                                                 <FileText className="h-8 w-8 text-institutional" />
                                                 <div>

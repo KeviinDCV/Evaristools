@@ -863,7 +863,7 @@ export default function CUVS() {
                 <meta name="description" content="Herramienta de procesamiento de archivos CUVS - Hospital Universitario del Valle" />
             </Head>
 
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="CUVS"
                     description="Procesamiento de archivos de facturación electrónica"
@@ -913,7 +913,7 @@ export default function CUVS() {
                                                     Seleccionar Carpeta
                                                 </Button>
                                                 {selectedFolder && (
-                                                    <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                                                    <div className="p-4 bg-slate-50 dark:bg-[#222322] rounded-lg">
                                                         <p className="text-sm text-slate-600 dark:text-slate-300">
                                                             {selectedFolder.length} archivos seleccionados
                                                         </p>

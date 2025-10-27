@@ -189,7 +189,7 @@ export default function SortPDF() {
         <>
             <Head title="Ordenar PDF - Evaristools" />
             
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="Ordenar PDF"
                     description="Reorganiza, elimina o reordena las páginas de tus documentos PDF"

@@ -62,7 +62,7 @@ export default function Evarisdrop() {
                 <meta name="description" content="Sistema de transferencia de archivos entre dispositivos en tiempo real" />
             </Head>
 
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="Evarisdrop"
                     description="Transferencia de archivos entre dispositivos en tiempo real"

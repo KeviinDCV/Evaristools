@@ -225,7 +225,7 @@ export default function WatermarkPDF() {
         <>
             <Head title="Marca de Agua en PDF - Evaristools" />
             
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="Marca de Agua en PDF"
                     description="Añade marcas de agua personalizadas a tus documentos PDF"
@@ -267,7 +267,7 @@ export default function WatermarkPDF() {
 
                                 {pdfFile && (
                                     <ToolCard title="Archivo Seleccionado">
-                                        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                                        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#222322] rounded-lg">
                                             <div className="flex items-center space-x-3">
                                                 <FileText className="h-8 w-8 text-institutional" />
                                                 <div>

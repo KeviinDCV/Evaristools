@@ -261,7 +261,7 @@ export default function ImagesToPDF() {
                 <meta name="description" content="Convierte múltiples imágenes en un documento PDF - Hospital Universitario del Valle" />
             </Head>
 
-            <div className="min-h-screen bg-white dark:bg-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
                 <ToolPageHeader
                     title="Imágenes a PDF"
                     description="Convierte múltiples imágenes en un documento PDF"
@@ -298,11 +298,11 @@ export default function ImagesToPDF() {
                                                 <select
                                                     id="pageSize"
                                                     value={pageOptions.size}
-                                                    onChange={(e) => setPageOptions(prev => ({ ...prev, size: e.target.value as keyof typeof PageSizes }))}
-                                                    className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
+                                                    onChange={(e) => setPageOptions(prev => ({ ...prev, size: e.target.value as 'A4' | 'Letter' | 'Legal' }))}
+                                                    className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-[#222322] text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
                                                 >
                                                     <option value="A4">A4</option>
-                                                    <option value="A3">A3</option>
+                                                    <option value="Letter">Letter</option>
                                                     <option value="A5">A5</option>
                                                     <option value="Letter">Letter</option>
                                                     <option value="Legal">Legal</option>
@@ -314,7 +314,7 @@ export default function ImagesToPDF() {
                                                     id="orientation"
                                                     value={pageOptions.orientation}
                                                     onChange={(e) => setPageOptions(prev => ({ ...prev, orientation: e.target.value as 'portrait' | 'landscape' }))}
-                                                    className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
+                                                    className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-[#222322] text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
                                                 >
                                                     <option value="portrait">Vertical</option>
                                                     <option value="landscape">Horizontal</option>
@@ -331,7 +331,7 @@ export default function ImagesToPDF() {
                                                     max="200"
                                                     value={pageOptions.margin}
                                                     onChange={(e) => setPageOptions(prev => ({ ...prev, margin: parseInt(e.target.value) || 50 }))}
-                                                    className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
+                                                    className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-[#222322] text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
                                                 />
                                             </div>
                                             <div className="space-y-2">
@@ -343,7 +343,7 @@ export default function ImagesToPDF() {
                                                     max="100"
                                                     value={pageOptions.quality}
                                                     onChange={(e) => setPageOptions(prev => ({ ...prev, quality: parseInt(e.target.value) || 85 }))}
-                                                    className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
+                                                    className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-[#222322] text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-institutional focus:border-institutional"
                                                 />
                                             </div>
                                         </div>
@@ -367,7 +367,7 @@ export default function ImagesToPDF() {
                                         </div>
                                         <div className="space-y-3 max-h-96 overflow-y-auto">
                                             {images.map((image, index) => (
-                                                <div key={image.id} className="flex items-center space-x-4 p-3 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800">
+                                                <div key={image.id} className="flex items-center space-x-4 p-3 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-[#222322]">
                                                     <img
                                                         src={image.url}
                                                         alt={`Imagen ${index + 1}`}
