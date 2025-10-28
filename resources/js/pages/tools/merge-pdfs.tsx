@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-
-import { ArrowLeft, FileUp, Download, Upload, Loader2, Building2, X, GripVertical, Plus, Trash2, HelpCircle } from 'lucide-react';
+import ToolPageHeader from '@/components/ToolPageHeader';
+import ToolCard from '@/components/ToolCard';
+import { FileUp, Upload, Loader2, X, GripVertical, Plus, Trash2, HelpCircle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { PDFDocument } from 'pdf-lib';
 import { driver } from 'driver.js';
@@ -319,59 +319,29 @@ export default function MergePDFs() {
                 <meta name="description" content="Une múltiples archivos PDF en un solo documento - Hospital Universitario del Valle" />
             </Head>
 
-            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
-                {/* Header */}
-                <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 dark:bg-[#222322] dark:border-[#3f3f40]">
-                    <div className="container mx-auto px-4 py-6">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-4">
-                                <Link href="/">
-                                    <Button variant="outline" size="sm" className="flex items-center space-x-2">
-                                        <ArrowLeft className="h-4 w-4" />
-                                        <span>Volver</span>
-                                    </Button>
-                                </Link>
-                                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-institutional/10 text-institutional">
-                                    <FileUp className="h-6 w-6" />
-                                </div>
-                                <div>
-                                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                                        Unir PDFs
-                                    </h1>
-                                    <p className="text-slate-600 dark:text-slate-300">
-                                        Combina múltiples archivos PDF en un solo documento
-                                    </p>
-                                </div>
-                            </div>
-                            <Badge variant="secondary" className="flex items-center space-x-1">
-                                <Building2 className="h-3 w-3" />
-                                <span>HUV</span>
-                            </Badge>
-                        </div>
-                    </div>
-                </div>
+            <div className="min-h-screen bg-layer-base">
+                <ToolPageHeader
+                    title="Unir PDFs"
+                    description="Combina múltiples archivos PDF en un solo documento"
+                    icon={FileUp}
+                />
 
-                {/* Main Content */}
-                <div className="container mx-auto px-4 py-8">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                            {/* Upload Section */}
-                            <div className="space-y-6">
-                                <Card data-tour="upload">
-                                    <CardHeader>
-                                        <CardTitle className="flex items-center space-x-2">
-                                            <Upload className="h-5 w-5" />
-                                            <span>Subir Archivos PDF</span>
-                                        </CardTitle>
-                                        <CardDescription>
-                                            Selecciona múltiples archivos PDF para unir en un solo documento
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent className="space-y-4">
-                                        {/* Drag & Drop Zone */}
+                {/* Main Content - Responsive grid */}
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+                            {/* Upload Section - Priority on mobile */}
+                            <div className="space-y-4 sm:space-y-6">
+                                <ToolCard 
+                                    title="Subir Archivos PDF" 
+                                    description="Selecciona múltiples archivos PDF para unir en un solo documento"
+                                    icon={Upload}
+                                    data-tour="upload"
+                                >
+                                        {/* Drag & Drop Zone - Responsive padding */}
                                         <div
                                             ref={dropZoneRef}
-                                            className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                                            className={`border-2 border-dashed rounded-lg p-6 sm:p-8 text-center transition-colors ${
                                                 files.length > 0 ? 'border-institutional bg-institutional/5' : 'border-slate-300 hover:border-institutional'
                                             }`}
                                             onDragOver={handleDragOver}
@@ -379,13 +349,13 @@ export default function MergePDFs() {
                                             onDragLeave={handleDragLeave}
                                             onDrop={handleDrop}
                                         >
-                                            <div className="space-y-4">
-                                                <FileUp className="h-12 w-12 mx-auto text-slate-400" />
+                                            <div className="space-y-3 sm:space-y-4">
+                                                <FileUp className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-slate-400" />
                                                 <div>
-                                                    <p className="text-lg font-medium text-slate-900 dark:text-white">
+                                                    <p className="text-base sm:text-lg font-medium text-slate-900 dark:text-white">
                                                         Arrastra múltiples PDFs aquí
                                                     </p>
-                                                    <p className="text-sm text-slate-600 dark:text-slate-300">
+                                                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
                                                         Solo archivos PDF (máximo recomendado: 10 archivos)
                                                     </p>
                                                 </div>
@@ -404,7 +374,7 @@ export default function MergePDFs() {
                                             className="hidden"
                                         />
 
-                                        <div className="flex gap-2">
+                                        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                                             <Button
                                                 onClick={() => fileInputRef.current?.click()}
                                                 variant="outline"
@@ -424,45 +394,38 @@ export default function MergePDFs() {
                                             )}
                                         </div>
 
-                                        {/* Summary */}
+                                        {/* Summary - Responsive grid */}
                                         {files.length > 0 && (
-                                            <div className="bg-slate-50 dark:bg-[#222322] rounded-lg p-4">
-                                                <div className="grid grid-cols-3 gap-4 text-center">
+                                            <div className="bg-layer-3 rounded-lg p-3 sm:p-4 shadow-layer-1">
+                                                <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
                                                     <div>
-                                                        <p className="text-sm text-slate-600 dark:text-slate-300">Archivos</p>
-                                                        <p className="font-semibold text-slate-900 dark:text-white">{files.length}</p>
+                                                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">Archivos</p>
+                                                        <p className="text-base sm:text-lg font-semibold text-slate-900 dark:text-white">{files.length}</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-sm text-slate-600 dark:text-slate-300">Páginas</p>
-                                                        <p className="font-semibold text-slate-900 dark:text-white">{getTotalPages()}</p>
+                                                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">Páginas</p>
+                                                        <p className="text-base sm:text-lg font-semibold text-slate-900 dark:text-white">{getTotalPages()}</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-sm text-slate-600 dark:text-slate-300">Tamaño</p>
-                                                        <p className="font-semibold text-slate-900 dark:text-white">{formatFileSize(getTotalSize())}</p>
+                                                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">Tamaño</p>
+                                                        <p className="text-base sm:text-lg font-semibold text-slate-900 dark:text-white truncate">{formatFileSize(getTotalSize())}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         )}
-                                    </CardContent>
-                                </Card>
+                                </ToolCard>
 
                                 {/* File List */}
                                 {files.length > 0 && (
-                                    <Card>
-                                        <CardHeader>
-                                            <CardTitle className="flex items-center justify-between">
-                                                <div className="flex items-center space-x-2">
-                                                    <FileUp className="h-5 w-5" />
-                                                    <span>Archivos Seleccionados</span>
-                                                </div>
-                                                <Badge variant="outline">{files.length} archivos</Badge>
-                                            </CardTitle>
-                                            <CardDescription>
-                                                Arrastra para reordenar. El orden determina cómo se unirán los PDFs.
-                                            </CardDescription>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <div className="space-y-2 max-h-96 overflow-y-auto">
+                                    <ToolCard 
+                                        title="Archivos Seleccionados"
+                                        description="Arrastra para reordenar. El orden determina cómo se unirán los PDFs."
+                                        icon={FileUp}
+                                    >
+                                        <div className="flex items-center justify-between mb-3">
+                                            <Badge variant="outline" className="text-xs sm:text-sm">{files.length} archivos</Badge>
+                                        </div>
+                                            <div className="space-y-2 max-h-[60vh] sm:max-h-96 overflow-y-auto">
                                                 {files.map((file, index) => (
                                                     <div
                                                         key={file.id}
@@ -470,31 +433,31 @@ export default function MergePDFs() {
                                                         onDragStart={(e) => handleDragStart(e, index)}
                                                         onDragOver={(e) => handleDragOverItem(e, index)}
                                                         onDragEnd={handleDragEnd}
-                                                        className="flex items-center space-x-3 p-3 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 cursor-move"
+                                                        className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-layer-3 cursor-move transition-colors"
                                                     >
-                                                        <div className="flex items-center space-x-2">
-                                                            <span className="text-sm font-medium text-slate-500 min-w-[20px]">
+                                                        <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                                                            <span className="text-xs sm:text-sm font-medium text-slate-500 min-w-[16px] sm:min-w-[20px]">
                                                                 {index + 1}
                                                             </span>
-                                                            <GripVertical className="h-4 w-4 text-slate-400" />
+                                                            <GripVertical className="h-3 w-3 sm:h-4 sm:w-4 text-slate-400" />
                                                         </div>
                                                         
                                                         <div className="flex-1 min-w-0">
-                                                            <p className="font-medium text-slate-900 dark:text-white truncate">
+                                                            <p className="text-sm sm:text-base font-medium text-slate-900 dark:text-white truncate">
                                                                 {file.name}
                                                             </p>
-                                                            <p className="text-sm text-slate-500">
-                                                                {file.pages} páginas • {formatFileSize(file.size)}
+                                                            <p className="text-xs sm:text-sm text-slate-500 truncate">
+                                                                {file.pages} pág • {formatFileSize(file.size)}
                                                             </p>
                                                         </div>
 
-                                                        <div className="flex items-center space-x-1">
+                                                        <div className="flex items-center gap-0.5 sm:gap-1 flex-shrink-0">
                                                             <Button
                                                                 size="sm"
                                                                 variant="ghost"
                                                                 onClick={() => moveUp(index)}
                                                                 disabled={index === 0}
-                                                                className="h-6 w-6 p-0"
+                                                                className="h-7 w-7 sm:h-6 sm:w-6 p-0"
                                                             >
                                                                 ↑
                                                             </Button>
@@ -503,7 +466,7 @@ export default function MergePDFs() {
                                                                 variant="ghost"
                                                                 onClick={() => moveDown(index)}
                                                                 disabled={index === files.length - 1}
-                                                                className="h-6 w-6 p-0"
+                                                                className="h-7 w-7 sm:h-6 sm:w-6 p-0"
                                                             >
                                                                 ↓
                                                             </Button>
@@ -519,29 +482,23 @@ export default function MergePDFs() {
                                                     </div>
                                                 ))}
                                             </div>
-                                        </CardContent>
-                                    </Card>
+                                    </ToolCard>
                                 )}
                             </div>
 
-                            {/* Options and Process Section */}
-                            <div className="space-y-6">
-                                <Card data-tour="options">
-                                    <CardHeader>
-                                        <CardTitle className="flex items-center space-x-2">
-                                            <FileUp className="h-5 w-5" />
-                                            <span>Opciones de Unión</span>
-                                        </CardTitle>
-                                        <CardDescription>
-                                            Configura cómo se unirán los archivos PDF
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent className="space-y-4">
+                            {/* Options and Process Section - Flows below on mobile */}
+                            <div className="space-y-4 sm:space-y-6">
+                                <ToolCard 
+                                    title="Opciones de Unión"
+                                    description="Configura cómo se unirán los archivos PDF"
+                                    icon={FileUp}
+                                    data-tour="options"
+                                >
                                         <div className="space-y-4">
-                                            <div className="flex items-center justify-between">
-                                                <div className="space-y-1">
-                                                    <Label htmlFor="bookmarks">Preservar Marcadores</Label>
-                                                    <p className="text-sm text-slate-600 dark:text-slate-300">
+                                            <div className="flex items-start sm:items-center justify-between gap-3">
+                                                <div className="space-y-0.5 sm:space-y-1 flex-1">
+                                                    <Label htmlFor="bookmarks" className="text-sm sm:text-base">Preservar Marcadores</Label>
+                                                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
                                                         Mantener los marcadores del primer PDF
                                                     </p>
                                                 </div>
@@ -552,7 +509,7 @@ export default function MergePDFs() {
                                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                                                         setOptions({ ...options, preserveBookmarks: e.target.checked })
                                                     }
-                                                    className="h-4 w-4 text-institutional border-gray-300 rounded focus:ring-institutional"
+                                                    className="h-4 w-4 sm:h-5 sm:w-5 text-institutional border-gray-300 rounded focus:ring-institutional flex-shrink-0"
                                                 />
                                             </div>
 
@@ -620,8 +577,7 @@ export default function MergePDFs() {
                                                 ¿Cómo funciona? - Tour Interactivo
                                             </Button>
                                         </div>
-                                    </CardContent>
-                                </Card>
+                                </ToolCard>
                             </div>
                         </div>
                     </div>

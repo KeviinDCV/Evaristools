@@ -176,19 +176,20 @@ export default function ResumeDocument() {
         <>
             <Head title="Resumir Documento - Evaristools" />
             
-            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
+            <div className="min-h-screen bg-layer-base">
                 <ToolPageHeader
                     title="Resumir Documento"
                     description="Genera resúmenes automáticos de documentos usando IA"
                     icon={Sparkles}
                 />
 
-                <div className="container mx-auto px-4 py-8">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+                    <div className="max-w-7xl mx-auto">
+                        {/* Responsive: Stack vertically on mobile, 2 columns on desktop */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
 
-                            {/* Left Column: File Upload & Messages */}
-                            <div className="space-y-6" data-tour="left-column">
+                            {/* Left Column: File Upload & Messages - Priority content on mobile */}
+                            <div className="space-y-4 sm:space-y-6" data-tour="left-column">
                                 {/* Upload Section */}
                                 {!file && (
                                     <ToolCard title="Seleccionar Documento" data-tour="upload-zone">
@@ -211,23 +212,23 @@ export default function ResumeDocument() {
                                 {/* Error Message */}
                                 {error && (
                                     <ToolCard title="Error">
-                                        <div className="flex items-start space-x-3 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                                        <div className="flex items-start gap-3 p-3 sm:p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                                             <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
-                                            <p className="text-red-800 dark:text-red-200">{error}</p>
+                                            <p className="text-sm sm:text-base text-red-800 dark:text-red-200">{error}</p>
                                         </div>
                                     </ToolCard>
                                 )}
 
                                 {file && (
                                     <ToolCard title="Archivo Seleccionado">
-                                        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#222322] rounded-lg">
-                                            <div className="flex items-center space-x-3">
-                                                <FileText className="h-8 w-8 text-institutional" />
-                                                <div>
-                                                    <p className="font-medium text-slate-900 dark:text-white">
+                                        <div className="flex items-center justify-between p-3 sm:p-4 bg-layer-2 rounded-lg shadow-layer-1">
+                                            <div className="flex items-center gap-3 min-w-0 flex-1">
+                                                <FileText className="h-7 w-7 sm:h-8 sm:w-8 text-institutional flex-shrink-0" />
+                                                <div className="min-w-0 flex-1">
+                                                    <p className="font-medium text-sm sm:text-base text-slate-900 dark:text-white truncate">
                                                         {file.name}
                                                     </p>
-                                                    <p className="text-sm text-slate-600 dark:text-slate-300">
+                                                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
                                                         {(file.size / 1024 / 1024).toFixed(2)} MB
                                                     </p>
                                                 </div>
@@ -238,12 +239,12 @@ export default function ResumeDocument() {
 
                                 {summary && (
                                     <ToolCard title="Resumen Generado">
-                                        <div className="space-y-4">
-                                            <div className="p-6 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-                                                <div className="prose prose-slate dark:prose-invert max-w-none">
+                                        <div className="space-y-3 sm:space-y-4">
+                                            <div className="p-4 sm:p-6 bg-layer-2 rounded-lg shadow-layer-1">
+                                                <div className="prose prose-sm sm:prose-base prose-slate dark:prose-invert max-w-none">
                                                     {summary.split('\n').map((paragraph, index) => (
                                                         paragraph.trim() && (
-                                                            <p key={index} className="text-slate-900 dark:text-white mb-3 last:mb-0">
+                                                            <p key={index} className="text-slate-900 dark:text-white mb-2 sm:mb-3 last:mb-0 leading-relaxed">
                                                                 {paragraph}
                                                             </p>
                                                         )
@@ -251,7 +252,7 @@ export default function ResumeDocument() {
                                                 </div>
                                             </div>
 
-                                            <div className="flex flex-col sm:flex-row gap-4">
+                                            <div className="flex flex-col sm:flex-row gap-3">
                                                 <Button
                                                     onClick={copyToClipboard}
                                                     variant="outline"
@@ -274,8 +275,8 @@ export default function ResumeDocument() {
                                 )}
                             </div>
 
-                            {/* Right Column: Options and Actions */}
-                            <div className="space-y-6">
+                            {/* Right Column: Options and Actions - Flows below on mobile */}
+                            <div className="space-y-4 sm:space-y-6">
                                 <ToolCard title="Opciones de Resumen" data-tour="options">
                                         <div className="space-y-4">
                                             {/* Length */}
@@ -317,6 +318,7 @@ export default function ResumeDocument() {
 
                                 <ToolCard title="Acciones" data-tour="actions">
                                     <div className="space-y-3">
+                                        {/* Stacked buttons on mobile, side by side on tablet+ */}
                                         <div className="flex flex-col sm:flex-row gap-3">
                                             <Button
                                                 onClick={generateSummary}

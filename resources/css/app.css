@@ -413,3 +413,13 @@
 @utility shadow-layer-3 {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 0.05);
 }
+
+/* Hide scrollbar utility for horizontal scroll elements */
+@utility scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

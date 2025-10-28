@@ -319,42 +319,50 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
             </Head>
             
             <div className="min-h-screen bg-layer-base">
-                {/* Header */}
-                <header className="bg-layer-1 backdrop-blur-md">
-                    <div className="container mx-auto px-4 py-6">
-                        <div className="flex flex-col items-center space-y-4">
-                            <div className="flex items-center space-x-3">
-                                <div className="flex h-12 w-12 items-center justify-center">
+                {/* Header - Responsive box system */}
+                <header className="bg-layer-1 backdrop-blur-md border-b border-border/50">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                        {/* Top bar: Logo + Title + Theme Toggle */}
+                        <div className="flex items-center justify-between py-4 gap-4">
+                            {/* Logo & Title - shrink on mobile, expand on desktop */}
+                            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                                <div className="flex-shrink-0 h-10 w-10 sm:h-12 sm:w-12">
                                     <img 
                                         src="/images/logo.png" 
                                         alt="Hospital Universitario del Valle Logo" 
-                                        className="h-10 w-10 object-contain"
+                                        className="h-full w-full object-contain"
                                     />
                                 </div>
-                                <div>
-                                    <h1 className="text-xl font-bold text-institutional dark:text-[#6b7bb8]">Evaristools</h1>
-                                    <p className="text-xs text-muted-foreground dark:text-slate-400 whitespace-nowrap">Hospital Universitario del Valle "Evaristo Garcia" E.S.E</p>
+                                <div className="min-w-0">
+                                    <h1 className="text-lg sm:text-xl font-bold text-institutional dark:text-[#6b7bb8] truncate">
+                                        Evaristools
+                                    </h1>
+                                    <p className="text-[10px] sm:text-xs text-muted-foreground dark:text-slate-400 truncate">
+                                        Hospital Universitario del Valle "Evaristo Garcia" E.S.E
+                                    </p>
                                 </div>
                             </div>
-                            <div className="absolute right-0 top-1/2 -translate-y-1/2">
+                            
+                            {/* Theme Toggle - always visible */}
+                            <div className="flex-shrink-0">
                                 <ThemeToggle />
                             </div>
                         </div>
                         
-                        {/* Search Bar */}
-                        <div className="flex justify-center">
-                            <div className="w-full max-w-md">
+                        {/* Search Bar - Full width on mobile, centered on desktop */}
+                        <div className="pb-4 sm:pb-6">
+                            <div className="w-full sm:max-w-md sm:mx-auto">
                                 <div className="relative">
                                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                                     <Input
                                         placeholder="Buscar herramientas..."
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="pl-10 bg-layer-2 border-0 shadow-layer-1"
+                                        className="pl-10 bg-layer-2 border-0 shadow-layer-1 h-11 sm:h-10"
                                     />
                                 </div>
                                 {searchTerm && (
-                                    <p className="text-sm text-muted-foreground mt-2 text-center">
+                                    <p className="text-xs sm:text-sm text-muted-foreground mt-2 text-center">
                                         {filteredTools.length} {filteredTools.length === 1 ? 'herramienta encontrada' : 'herramientas encontradas'}
                                     </p>
                                 )}
@@ -363,17 +371,22 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                     </div>
                 </header>
 
-                {/* Tools Section */}
-                <main className="container mx-auto px-4 py-8">
+                {/* Tools Section - Responsive rearrangement */}
+                <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
                     <Tabs defaultValue="all" className="w-full">
-                        <TabsList className="grid w-full grid-cols-6 mb-8">
-                            <TabsTrigger value="all">Todas las herramientas</TabsTrigger>
-                            <TabsTrigger value="pdf-tools">PDF</TabsTrigger>
-                            <TabsTrigger value="document-tools">Documentos</TabsTrigger>
-                            <TabsTrigger value="security-tools">Seguridad</TabsTrigger>
-                            <TabsTrigger value="organization-tools">Organización</TabsTrigger>
-                            <TabsTrigger value="image-tools">Imágenes</TabsTrigger>
-                        </TabsList>
+                        {/* Tabs - Horizontal scroll on mobile, grid on desktop */}
+                        <div className="mb-6 sm:mb-8 -mx-4 sm:mx-0">
+                            <div className="overflow-x-auto scrollbar-hide">
+                                <TabsList className="inline-flex sm:grid sm:w-full sm:grid-cols-3 lg:grid-cols-6 min-w-full sm:min-w-0 px-4 sm:px-0">
+                                    <TabsTrigger value="all" className="whitespace-nowrap">Todas</TabsTrigger>
+                                    <TabsTrigger value="pdf-tools" className="whitespace-nowrap">PDF</TabsTrigger>
+                                    <TabsTrigger value="document-tools" className="whitespace-nowrap">Documentos</TabsTrigger>
+                                    <TabsTrigger value="security-tools" className="whitespace-nowrap">Seguridad</TabsTrigger>
+                                    <TabsTrigger value="organization-tools" className="whitespace-nowrap">Organización</TabsTrigger>
+                                    <TabsTrigger value="image-tools" className="whitespace-nowrap">Imágenes</TabsTrigger>
+                                </TabsList>
+                            </div>
+                        </div>
 
                         <TabsContent value="all" className="space-y-8">
                             {filteredTools.length === 0 ? (
@@ -387,7 +400,7 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                                     </p>
                                 </div>
                             ) : (
-                                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                                     {filteredTools.map((tool) => {
                                         const isPopular = isToolPopular(tool.id);
                                         return (
@@ -448,22 +461,22 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                         </TabsContent>
 
                         {filteredCategories.map((category) => (
-                            <TabsContent key={category.id} value={category.id} className="space-y-6">
-                                <div className="flex items-center space-x-4 mb-6">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-layer-1 text-institutional">
-                                        <category.icon className="h-6 w-6" />
+                            <TabsContent key={category.id} value={category.id} className="space-y-4 sm:space-y-6">
+                                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                                    <div className="flex-shrink-0 h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-lg bg-primary-layer-1 text-institutional">
+                                        <category.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                                     </div>
-                                    <div>
-                                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                                    <div className="min-w-0 flex-1">
+                                        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
                                             {category.title}
                                         </h2>
-                                        <p className="text-slate-600 dark:text-slate-300">
+                                        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
                                             {category.description}
                                         </p>
                                     </div>
                                 </div>
 
-                                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                                     {category.tools.map((tool) => {
                                         const isPopular = isToolPopular(tool.id);
                                         return (

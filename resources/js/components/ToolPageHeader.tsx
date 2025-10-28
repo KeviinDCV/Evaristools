@@ -12,36 +12,45 @@ interface ToolPageHeaderProps {
 
 export default function ToolPageHeader({ title, description, icon: Icon, showPopularBadge = false }: ToolPageHeaderProps) {
     return (
-        <div className="bg-white/80 backdrop-blur-sm border-b border-white/20 dark:bg-slate-800/80 dark:border-slate-700/20">
-            <div className="container mx-auto px-4 py-4">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                        <Link href="/">
-                            <Button variant="outline" size="sm" className="flex items-center space-x-2">
-                                <ArrowLeft className="h-4 w-4" />
-                                <span>Volver</span>
+        <div className="bg-layer-1 backdrop-blur-sm border-b border-border/50">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+                {/* Responsive layout: Stack on mobile, horizontal on desktop */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                    {/* Left section */}
+                    <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                        {/* Back button */}
+                        <Link href="/" className="flex-shrink-0">
+                            <Button variant="outline" size="sm" className="h-9 sm:h-10">
+                                <ArrowLeft className="h-4 w-4 sm:mr-2" />
+                                <span className="hidden sm:inline">Volver</span>
                             </Button>
                         </Link>
-                        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-institutional/10 text-institutional">
-                            <Icon className="h-6 w-6" />
+                        
+                        {/* Icon */}
+                        <div className="flex-shrink-0 h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-lg bg-primary-layer-1 text-institutional">
+                            <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                         </div>
-                        <div>
-                            <div className="flex items-center space-x-2">
-                                <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+                        
+                        {/* Title & Description */}
+                        <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                                <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 dark:text-white">
                                     {title}
                                 </h1>
                                 {showPopularBadge && (
-                                    <Badge variant="secondary" className="text-xs">
+                                    <Badge variant="secondary" className="text-xs flex-shrink-0">
                                         Popular
                                     </Badge>
                                 )}
                             </div>
-                            <p className="text-slate-600 dark:text-slate-300">
+                            <p className="text-xs sm:text-sm lg:text-base text-slate-600 dark:text-slate-300 line-clamp-2 sm:line-clamp-1">
                                 {description}
                             </p>
                         </div>
                     </div>
-                    <Badge variant="secondary" className="flex items-center space-x-1">
+                    
+                    {/* Right badge - Hidden on mobile, visible on tablet+ */}
+                    <Badge variant="secondary" className="hidden sm:flex items-center gap-1 flex-shrink-0">
                         <Building2 className="h-3 w-3" />
                         <span>HUV</span>
                     </Badge>
