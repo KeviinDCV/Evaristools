@@ -23,23 +23,42 @@
     --color-background: var(--background);
     --color-foreground: var(--foreground);
 
+    /* Layer system colors */
+    --color-layer-base: var(--layer-base);
+    --color-layer-1: var(--layer-1);
+    --color-layer-2: var(--layer-2);
+    --color-layer-3: var(--layer-3);
+
     --color-card: var(--card);
     --color-card-foreground: var(--card-foreground);
+    --color-card-elevated: var(--card-elevated);
 
     --color-popover: var(--popover);
     --color-popover-foreground: var(--popover-foreground);
 
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
+    --color-primary-layer-base: var(--primary-layer-base);
+    --color-primary-layer-1: var(--primary-layer-1);
+    --color-primary-layer-2: var(--primary-layer-2);
+    --color-primary-layer-3: var(--primary-layer-3);
 
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary-layer-1: var(--secondary-layer-1);
+    --color-secondary-layer-2: var(--secondary-layer-2);
+    --color-secondary-layer-3: var(--secondary-layer-3);
 
     --color-muted: var(--muted);
     --color-muted-foreground: var(--muted-foreground);
+    --color-muted-layer-1: var(--muted-layer-1);
+    --color-muted-layer-2: var(--muted-layer-2);
 
     --color-accent: var(--accent);
     --color-accent-foreground: var(--accent-foreground);
+    --color-accent-layer-1: var(--accent-layer-1);
+    --color-accent-layer-2: var(--accent-layer-2);
+    --color-accent-layer-3: var(--accent-layer-3);
 
     --color-destructive: var(--destructive);
     --color-destructive-foreground: var(--destructive-foreground);
@@ -62,25 +81,70 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-layer-1: var(--sidebar-layer-1);
+    --color-sidebar-layer-2: var(--sidebar-layer-2);
 }
 
 :root {
+    /* Base colors */
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
+
+    /* Color Layering System - Background layers (darker = deeper) */
+    --layer-base: oklch(0.98 0 0);
+    /* Deepest layer - page background */
+    --layer-1: oklch(0.99 0 0);
+    /* +0.01 lightness - first elevation */
+    --layer-2: oklch(1 0 0);
+    /* +0.02 lightness - cards, containers */
+    --layer-3: oklch(1 0.002 0);
+    /* +0.03 lightness - elevated elements */
+
+    /* Card system with depth */
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
+    --card-elevated: oklch(1 0.002 0);
+    /* Elevated cards */
+
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
+
+    /* Primary color layers */
     --primary: #2d3e83;
     --primary-foreground: oklch(0.985 0 0);
     --primary-light: #4a5ba3;
     --primary-dark: #1e2a5c;
+
+    /* Primary depth layers (for backgrounds) */
+    --primary-layer-base: oklch(0.92 0.02 264);
+    /* Deepest primary background */
+    --primary-layer-1: oklch(0.94 0.015 264);
+    /* +0.02 elevation */
+    --primary-layer-2: oklch(0.96 0.01 264);
+    /* +0.04 elevation */
+    --primary-layer-3: oklch(0.98 0.005 264);
+    /* +0.06 elevation - most elevated */
+
+    /* Secondary with layers */
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
+    --secondary-layer-1: oklch(0.975 0 0);
+    --secondary-layer-2: oklch(0.98 0 0);
+    --secondary-layer-3: oklch(0.985 0 0);
+
+    /* Muted with layers */
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
+    --muted-layer-1: oklch(0.975 0 0);
+    --muted-layer-2: oklch(0.98 0 0);
+
+    /* Accent with layers */
     --accent: oklch(0.97 0 0);
     --accent-foreground: oklch(0.205 0 0);
+    --accent-layer-1: oklch(0.975 0 0);
+    --accent-layer-2: oklch(0.98 0 0);
+    --accent-layer-3: oklch(0.985 0 0);
+
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(0.577 0.245 27.325);
     --border: oklch(0.922 0 0);
@@ -92,6 +156,8 @@
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.769 0.188 70.08);
     --radius: 0.625rem;
+
+    /* Sidebar with layers */
     --sidebar: oklch(0.985 0 0);
     --sidebar-foreground: oklch(0.145 0 0);
     --sidebar-primary: #2d3e83;
@@ -100,7 +166,9 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.87 0 0);
-    
+    --sidebar-layer-1: oklch(0.99 0 0);
+    --sidebar-layer-2: oklch(0.995 0 0);
+
     /* Custom institutional colors */
     --institutional-blue: #2d3e83;
     --institutional-blue-light: #4a5ba3;
@@ -110,62 +178,88 @@
 }
 
 .dark {
-    /* Colores de fondo mejorados */
-    --background: #1d1d1e;
-    --foreground: #e8e8e8;
-    
-    /* Cards con mejor contraste */
-    --card: #222322;
-    --card-foreground: #f0f0f0;
-    
-    /* Popovers */
-    --popover: #2f2f30;
-    --popover-foreground: #f0f0f0;
-    
-    /* Primary - Mantener el azul institucional */
+    /* Base colors */
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+
+    /* Color Layering System - Dark mode (lighter = elevated) */
+    --layer-base: oklch(0.145 0 0);
+    /* Deepest layer - page background */
+    --layer-1: oklch(0.18 0 0);
+    /* +0.035 lightness - first elevation */
+    --layer-2: oklch(0.215 0 0);
+    /* +0.07 lightness - cards, containers */
+    --layer-3: oklch(0.25 0 0);
+    /* +0.105 lightness - elevated elements */
+
+    /* Card system with depth */
+    --card: oklch(0.215 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --card-elevated: oklch(0.25 0 0);
+    /* Elevated cards */
+
+    --popover: oklch(0.215 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+
+    /* Primary color layers */
     --primary: #4a5ba3;
     --primary-foreground: #ffffff;
     --primary-light: #6b7bb8;
     --primary-dark: #2d3e83;
-    
-    /* Secondary con mejor contraste */
-    --secondary: #2f2f30;
-    --secondary-foreground: #f0f0f0;
-    
-    /* Muted */
-    --muted: #2f2f30;
-    --muted-foreground: #a0a0a0;
-    
-    /* Accent */
-    --accent: #2f2f30;
-    --accent-foreground: #f0f0f0;
-    
-    /* Destructive */
-    --destructive: #ef4444;
-    --destructive-foreground: #ffffff;
-    
-    /* Borders e inputs con mejor visibilidad */
-    --border: #3f3f40;
-    --input: #2f2f30;
-    --ring: #4a5ba3;
-    
-    /* Charts */
+
+    /* Primary depth layers (for backgrounds) - darker in dark mode */
+    --primary-layer-base: oklch(0.25 0.08 264);
+    /* Deepest primary background */
+    --primary-layer-1: oklch(0.285 0.085 264);
+    /* +0.035 elevation */
+    --primary-layer-2: oklch(0.32 0.09 264);
+    /* +0.07 elevation */
+    --primary-layer-3: oklch(0.355 0.095 264);
+    /* +0.105 elevation - most elevated */
+
+    /* Secondary with layers */
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --secondary-layer-1: oklch(0.304 0 0);
+    --secondary-layer-2: oklch(0.339 0 0);
+    --secondary-layer-3: oklch(0.374 0 0);
+
+    /* Muted with layers */
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --muted-layer-1: oklch(0.304 0 0);
+    --muted-layer-2: oklch(0.339 0 0);
+
+    /* Accent with layers */
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --accent-layer-1: oklch(0.304 0 0);
+    --accent-layer-2: oklch(0.339 0 0);
+    --accent-layer-3: oklch(0.374 0 0);
+
+    --destructive: oklch(0.396 0.141 25.723);
+    --destructive-foreground: oklch(0.637 0.237 25.331);
+    --border: oklch(0.269 0 0);
+    --input: oklch(0.269 0 0);
+    --ring: oklch(0.439 0 0);
     --chart-1: oklch(0.488 0.243 264.376);
     --chart-2: oklch(0.696 0.17 162.48);
     --chart-3: oklch(0.769 0.188 70.08);
     --chart-4: oklch(0.627 0.265 303.9);
     --chart-5: oklch(0.645 0.246 16.439);
-    
-    /* Sidebar con los nuevos colores */
-    --sidebar: #222322;
-    --sidebar-foreground: #f0f0f0;
+
+    /* Sidebar with layers */
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
     --sidebar-primary: #4a5ba3;
-    --sidebar-primary-foreground: #ffffff;
-    --sidebar-accent: #2f2f30;
-    --sidebar-accent-foreground: #f0f0f0;
-    --sidebar-border: #3f3f40;
-    --sidebar-ring: #4a5ba3;
-    
+    --sidebar-primary-foreground: oklch(0.145 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(0.269 0 0);
+    --sidebar-ring: oklch(0.439 0 0);
+    --sidebar-layer-1: oklch(0.24 0 0);
+    --sidebar-layer-2: oklch(0.275 0 0);
+
     /* Custom institutional colors for dark mode */
     --institutional-blue: #4a5ba3;
     --institutional-blue-light: #6b7bb8;
@@ -182,8 +276,13 @@
     body {
         @apply bg-background text-foreground font-sans;
     }
-    
-    h1, h2, h3, h4, h5, h6 {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         @apply font-serif;
     }
 }
@@ -212,9 +311,105 @@
 
 @utility hover-lift {
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    
+
     &:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(45, 62, 131, 0.15);
     }
+}
+
+/* Color Layering Utilities - No borders needed! */
+@utility bg-layer-base {
+    background-color: var(--layer-base);
+}
+
+@utility bg-layer-1 {
+    background-color: var(--layer-1);
+}
+
+@utility bg-layer-2 {
+    background-color: var(--layer-2);
+}
+
+@utility bg-layer-3 {
+    background-color: var(--layer-3);
+}
+
+/* Primary color layers */
+@utility bg-primary-layer-base {
+    background-color: var(--primary-layer-base);
+}
+
+@utility bg-primary-layer-1 {
+    background-color: var(--primary-layer-1);
+}
+
+@utility bg-primary-layer-2 {
+    background-color: var(--primary-layer-2);
+}
+
+@utility bg-primary-layer-3 {
+    background-color: var(--primary-layer-3);
+}
+
+/* Secondary layers */
+@utility bg-secondary-layer-1 {
+    background-color: var(--secondary-layer-1);
+}
+
+@utility bg-secondary-layer-2 {
+    background-color: var(--secondary-layer-2);
+}
+
+@utility bg-secondary-layer-3 {
+    background-color: var(--secondary-layer-3);
+}
+
+/* Muted layers */
+@utility bg-muted-layer-1 {
+    background-color: var(--muted-layer-1);
+}
+
+@utility bg-muted-layer-2 {
+    background-color: var(--muted-layer-2);
+}
+
+/* Accent layers */
+@utility bg-accent-layer-1 {
+    background-color: var(--accent-layer-1);
+}
+
+@utility bg-accent-layer-2 {
+    background-color: var(--accent-layer-2);
+}
+
+@utility bg-accent-layer-3 {
+    background-color: var(--accent-layer-3);
+}
+
+/* Sidebar layers */
+@utility bg-sidebar-layer-1 {
+    background-color: var(--sidebar-layer-1);
+}
+
+@utility bg-sidebar-layer-2 {
+    background-color: var(--sidebar-layer-2);
+}
+
+/* Elevated card utility */
+@utility bg-card-elevated {
+    background-color: var(--card-elevated);
+}
+
+/* Depth shadow system - subtle shadows for layering */
+@utility shadow-layer-1 {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+}
+
+@utility shadow-layer-2 {
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.04);
+}
+
+@utility shadow-layer-3 {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 0.05);
 }

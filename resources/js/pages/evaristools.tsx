@@ -318,13 +318,13 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                 <meta name="description" content="Hospital Universitario del Valle 'Evaristo Garcia' E.S.E - Herramientas completas de digitalización, OCR y procesamiento de documentos." />
             </Head>
             
-            <div className="min-h-screen bg-white dark:bg-[#1d1d1e]">
+            <div className="min-h-screen bg-layer-base">
                 {/* Header */}
-                <header className="border-b border-gray-200 dark:border-[#3f3f40] bg-white dark:bg-[#222322]">
-                    <div className="container mx-auto px-4 py-4">
-                        <div className="relative flex items-center justify-center mb-4">
-                            <div className="flex items-center gap-2">
-                                <div className="flex h-10 w-10 items-center justify-center">
+                <header className="bg-layer-1 backdrop-blur-md">
+                    <div className="container mx-auto px-4 py-6">
+                        <div className="flex flex-col items-center space-y-4">
+                            <div className="flex items-center space-x-3">
+                                <div className="flex h-12 w-12 items-center justify-center">
                                     <img 
                                         src="/images/logo.png" 
                                         alt="Hospital Universitario del Valle Logo" 
@@ -350,7 +350,7 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                                         placeholder="Buscar herramientas..."
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="pl-10 border-gray-200 dark:border-[#3f3f40] bg-white dark:bg-[#2f2f30] dark:text-white"
+                                        className="pl-10 bg-layer-2 border-0 shadow-layer-1"
                                     />
                                 </div>
                                 {searchTerm && (
@@ -393,12 +393,12 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                                         return (
                                             <Card
                                                 key={tool.id}
-                                                className="group border-gray-200 dark:border-[#3f3f40] bg-white dark:bg-[#222322] hover-lift hover:bg-gray-50 dark:hover:bg-[#2f2f30] transition-colors"
+                                                className="group bg-layer-2 border-0 shadow-layer-2 hover-lift hover:bg-layer-3 transition-colors"
                                             >
                                                 <CardHeader className="pb-3">
                                                     <div className="flex items-start justify-between">
                                                         <div className="flex items-center space-x-3">
-                                                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-institutional/10 text-institutional group-hover:bg-institutional group-hover:text-white transition-colors">
+                                                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-layer-1 text-institutional group-hover:bg-institutional group-hover:text-white transition-colors">
                                                                 <tool.icon className="h-5 w-5" />
                                                             </div>
                                                             <div>
@@ -450,7 +450,7 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                         {filteredCategories.map((category) => (
                             <TabsContent key={category.id} value={category.id} className="space-y-6">
                                 <div className="flex items-center space-x-4 mb-6">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-institutional/10 text-institutional">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-layer-1 text-institutional">
                                         <category.icon className="h-6 w-6" />
                                     </div>
                                     <div>
@@ -469,12 +469,12 @@ export default function Evaristools({ shared }: { shared: SharedData }) {
                                         return (
                                             <Card
                                                 key={tool.id}
-                                                className="group border-gray-200 dark:border-[#3f3f40] bg-white dark:bg-[#222322] hover-lift hover:bg-gray-50 dark:hover:bg-[#2f2f30] transition-colors"
+                                                className="group bg-layer-2 border-0 shadow-layer-2 hover-lift hover:bg-layer-3 transition-colors"
                                             >
                                                 <CardHeader className="pb-3">
                                                     <div className="flex items-start justify-between">
                                                         <div className="flex items-center space-x-3">
-                                                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-institutional/10 text-institutional group-hover:bg-institutional group-hover:text-white transition-colors">
+                                                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-layer-1 text-institutional group-hover:bg-institutional group-hover:text-white transition-colors">
                                                                 <tool.icon className="h-5 w-5" />
                                                             </div>
                                                             <div>
