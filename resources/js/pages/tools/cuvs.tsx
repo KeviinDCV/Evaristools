@@ -12,6 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Label } from '@/components/ui/label';
 import { driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
+// Importación estática de xlsx para evitar problemas con importación dinámica
+import * as XLSX from 'xlsx';
 
 // Mensajes estandarizados
 const MESSAGES = {
@@ -769,7 +771,12 @@ export default function CUVS() {
         setProcessingType('convertir-excel');
 
         try {
-            const XLSX = (await import('xlsx')).default;
+            // XLSX ya está importado estáticamente al inicio del archivo
+            // Verificar que XLSX y utils estén disponibles
+            if (!XLSX || !XLSX.utils) {
+                throw new Error('Error al cargar la librería XLSX. Por favor recarga la página.');
+            }
+            
             const JSZip = (await import('jszip')).default;
             
             console.log(`Convirtiendo ${files.length} archivos a Excel...`);
@@ -778,6 +785,27 @@ export default function CUVS() {
             const zip = new JSZip();
             let archivosConvertidos = 0;
             
+            // Función auxiliar para aplanar objetos anidados
+            const flattenObject = (obj: any, prefix = ''): any => {
+                const flattened: any = {};
+                for (const key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        const newKey = prefix ? `${prefix}.${key}` : key;
+                        if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+                            Object.assign(flattened, flattenObject(obj[key], newKey));
+                        } else {
+                            // Convertir arrays y valores complejos a string
+                            if (Array.isArray(obj[key])) {
+                                flattened[newKey] = JSON.stringify(obj[key]);
+                            } else {
+                                flattened[newKey] = obj[key];
+                            }
+                        }
+                    }
+                }
+                return flattened;
+            };
+            
             for (const [nombreCarpeta, archivos] of Object.entries(carpetas)) {
                 for (const archivo of archivos) {
                     try {
@@ -785,8 +813,11 @@ export default function CUVS() {
                             const contenidoTexto = await leerArchivo(archivo);
                             const data = JSON.parse(contenidoTexto);
                             
+                            // Aplanar el objeto para evitar problemas con estructuras anidadas
+                            const flattenedData = flattenObject(data);
+                            
                             // Convertir a Excel
-                            const worksheet = XLSX.utils.json_to_sheet([data]);
+                            const worksheet = XLSX.utils.json_to_sheet([flattenedData]);
                             const workbook = XLSX.utils.book_new();
                             XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
                             
@@ -798,9 +829,13 @@ export default function CUVS() {
                             
                             zip.file(rutaExcel, excelBlob);
                             archivosConvertidos++;
+                            
+                            console.log(`✅ Convertido: ${archivo.name} → ${nombreExcel}`);
                         }
                     } catch (error) {
                         console.error(`Error convirtiendo ${archivo.name}:`, error);
+                        const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+                        console.error(`Detalles del error: ${errorMessage}`);
                     }
                 }
             }

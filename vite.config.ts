@@ -20,4 +20,19 @@ export default defineConfig({
     esbuild: {
         jsx: 'automatic',
     },
+    server: {
+        host: '0.0.0.0', // Escuchar en todas las interfaces de red
+        port: 5173,
+        strictPort: true,
+        hmr: {
+            // Usar la IP de la red para HMR - esto es lo que Laravel usará para generar las URLs
+            host: '192.168.2.202',
+            port: 5173,
+            protocol: 'ws',
+        },
+        cors: {
+            origin: true, // Permitir cualquier origen
+            credentials: true,
+        },
+    },
 });
